@@ -2,18 +2,18 @@
 
 ## First steps
 
-1. Create a repository in your team using this template repo
+- [x] 1. Create a repository in your team using this template repo
 2. Choose a license and update the LICENSE file accordingly (default is GPL-3.0-or-later). 
-3. Edit this CHECKLIST.md file and use it as the main location of your technical documentation with links out to other information contained under `/docs/`.
-4. Create a `/docs/` directory for more elaborate documentation of your API, planning notes, etc.
-5. Make sure that all of your team members have access to the repository.
+- [x] 3. Edit this CHECKLIST.md file and use it as the main location of your technical documentation with links out to other information contained under `/docs/`.
+- [x] 4. Create a `/docs/` directory for more elaborate documentation of your API, planning notes, etc.
+- [x] 5. Make sure that all of your team members have access to the repository.
 6. Create a project under the **Projects** tab. Use this to manage your planning. Create a To-do list, etc. Explore the tools available and user them to manage your project.
 7. Assign team roles and include a listing of those roles in this CHECKLIST.md file or in another file under `/docs/`.
-8. Then put your entire development workflow in this repository.
+- [x] 8. Then put your entire development workflow in this repository.
 9. Assign ONE approver to maintain the package and merge pull requests.
 10. Create **forks** to add basic structure, files, and to develop features. Be mindful to not run over each other's code.
-11. Use **Pull requests** to propose changes and incorporate them into your code from various team members. 
-12. Use **Issues** to identify and track bugs and also to communicate about various aspects of the project.
+- [x] 11. Use **Pull requests** to propose changes and incorporate them into your code from various team members. 
+- [x] 12. Use **Issues** to identify and track bugs and also to communicate about various aspects of the project.
 
 ## Team mangement 
 
