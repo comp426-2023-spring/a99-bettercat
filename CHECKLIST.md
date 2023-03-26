@@ -3,7 +3,7 @@
 ## First steps
 
 - [x] 1. Create a repository in your team using this template repo
-2. Choose a license and update the LICENSE file accordingly (default is GPL-3.0-or-later). 
+- [x] 2. Choose a license and update the LICENSE file accordingly (default is GPL-3.0-or-later). 
 - [x] 3. Edit this CHECKLIST.md file and use it as the main location of your technical documentation with links out to other information contained under `/docs/`.
 - [x] 4. Create a `/docs/` directory for more elaborate documentation of your API, planning notes, etc.
 - [x] 5. Make sure that all of your team members have access to the repository.
