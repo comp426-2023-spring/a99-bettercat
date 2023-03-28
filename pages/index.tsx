@@ -30,9 +30,15 @@ export default function Home() {
         <p>Signed In User: {user.email}</p>
         <button onClick={() => auth.signOut()}>Sign out</button>
         <h1>Restaurants</h1>
+<<<<<<< HEAD
         {restaurants?.docs.map((doc) => (
           <p>{doc.get("name")}</p>
         ))}
+=======
+        {restaurants?.docs.map((doc) =>
+          <p>{doc.get("name")}</p>)
+        }
+>>>>>>> 5717be1a7979251845289df8338e418287d4ab1e
       </div>
     );
   }
