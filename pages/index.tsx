@@ -34,7 +34,8 @@ export default function Home() {
         <button onClick={() => auth.signOut()}>Sign out</button>
         <h1>Restaurants</h1>
         {restaurants?.docs.map((doc) =>
-        <p>{doc.get("name")}</p>)}
+          <p>{doc.get("name")}</p>)
+        }
       </div>
     );
   }
