@@ -6,5 +6,5 @@ export default interface Review {
     userId: number, // ID of the user who wrote this review
     score: number, // This is the review score (stars / rams) out of 5. 
     text: string, // Body of the review
-    tags: [string] // Any tags the user left on the review (TBD feature)
+    tags: string[] // Any tags the user left on the review (TBD feature)
 }
