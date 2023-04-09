@@ -9,7 +9,7 @@ import Head from 'next/head'
 const app = initFirebase();
 const auth = getAuth();
 
-/** Interface for the parameter of the `Home` component. */
+/** Interface for the parameter of the `Restaurants` component. */
 interface RestaurantsProps {
   restaurants: Restaurant[];
 }
