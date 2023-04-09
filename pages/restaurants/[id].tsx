@@ -61,7 +61,7 @@ export async function getStaticProps(context: GetStaticPropsContext) {
     const { id } = context.params as RestaurantParams
 
     // Get restaurant data
-    const restaurant = await DataService.getRestaurant(Array.isArray(id) ? id[0] : id);
+    const restaurant = await DataService.getRestaurant(Array.isArray(id) ? id[0] : id!);
 
     return {props: {restaurant: restaurant} }
 }
