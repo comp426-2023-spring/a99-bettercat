@@ -39,7 +39,7 @@ export default function CourseView({restaurant}: RestaurantProps) {
 export const getStaticPaths: GetStaticPaths<{ id: string }> = async () => {
 
     // Return such that no pages need to be created at build time,
-    // and a "blocking" fallback. 
+    // and a "blocking" fallback.
     return {
         paths: [], fallback: "blocking"
     };
