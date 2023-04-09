@@ -14,7 +14,7 @@ export default async function handle(req: NextApiRequest, res: NextApiResponse) 
         const userId = req.query.id;
 
         // Attempt to find user for ID        
-        const user = await DataService.getUser(Array.isArray(userId) ? +userId[0] : +userId!)
+        const user = await DataService.getUser(Array.isArray(userId) ? userId[0] : userId!)
 
         // Check if user found
         if(user !== null) {
