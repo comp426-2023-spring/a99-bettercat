@@ -52,8 +52,8 @@ export const getRestaurant = async (id: string) => {
  * @returns the reviews from the database.
  */
 export const getReviewsForRestaurant = async (restaurantId: string) => {
-    const restaurantCollection = collection(firestore, "reviews").withConverter(converter<Review>());
-    const q = query(restaurantCollection, where("restaurantId", "==", restaurantId));
+    const reviewsCollection = collection(firestore, "reviews").withConverter(converter<Review>());
+    const q = query(reviewsCollection, where("restaurantId", "==", restaurantId));
     const querySnapshot = await getDocs(q);
     const reviews: Review[] = querySnapshot.docs.map((review) => review.data());
 
@@ -66,8 +66,8 @@ export const getReviewsForRestaurant = async (restaurantId: string) => {
  * @returns the reviews from the database.
  */
 export const getReviewsFromUser = async (userId: string) => {
-    const restaurantCollection = collection(firestore, "reviews").withConverter(converter<Review>());
-    const q = query(restaurantCollection, where("userId", "==", userId));
+    const reviewsCollection = collection(firestore, "reviews").withConverter(converter<Review>());
+    const q = query(reviewsCollection, where("userId", "==", userId));
     const querySnapshot = await getDocs(q);
     const reviews: Review[] = querySnapshot.docs.map((review) => review.data());
 
@@ -80,8 +80,8 @@ export const getReviewsFromUser = async (userId: string) => {
  * @returns the user from the database.
  */
 export const getUser = async (id: string) => {
-    const restaurantCollection = collection(firestore, "users").withConverter(converter<User>());
-    const docReference = doc(restaurantCollection, id);
+    const userCollection = collection(firestore, "users").withConverter(converter<User>());
+    const docReference = doc(userCollection, id);
     const querySnapshot = await getDoc(docReference);
     const user: User | undefined = querySnapshot.data()
 
