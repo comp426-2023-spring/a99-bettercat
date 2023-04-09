@@ -13,7 +13,7 @@ interface RestaurantProps {
     restaurant: Restaurant;
 }
 
-export default function CourseView({restaurant}: RestaurantProps) {
+export default function RestaurantView({restaurant}: RestaurantProps) {
 
   /* Load user authentication hook
    - user: Once authenticated user loads, user !== null.
