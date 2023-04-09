@@ -8,28 +8,32 @@ import * as DataService from '@/lib/DataService'
  * @param res - API response object
  */
 export default async function handle(req: NextApiRequest, res: NextApiResponse) {
-    try {
 
-        // Read ID from request
-        const restaurantId = req.query.id;
+    if (req.method === "GET") {
+        try {
 
-        // Attempt to find restarant for ID        
-        const restaurant = await DataService.getRestaurant(Array.isArray(restaurantId) ? restaurantId[0] : restaurantId!)
+            // Read ID from request
+            const restaurantId = req.query.id;
 
-        // Check if restaurant found
-        if(restaurant !== null) {
-            // If so...
+            // Attempt to find restarant for ID        
+            const restaurant = await DataService.getRestaurant(Array.isArray(restaurantId) ? restaurantId[0] : restaurantId!)
 
-            // Return data
-            res.status(200).json(restaurant);
-        } 
-        else {
-            // Otherwise, return 400 error
-            res.status(400).send({ error: "Data for restaurant not found" });
+            // Check if restaurant found
+            if (restaurant !== null) {
+                // If so...
+
+                // Return data
+                res.status(200).json(restaurant);
+            }
+            else {
+                // Otherwise, return 400 error
+                res.status(400).send({ error: "Data for restaurant not found" });
+            }
         }
-    }
-    // Handle any errors here
-    catch(err) {
-        res.status(500).send({ error: "Failed to fetch data"});
+        // Handle any errors here
+        catch (err) {
+            res.status(500).send({ error: "Failed to fetch data" });
+        }
+
     }
 }
