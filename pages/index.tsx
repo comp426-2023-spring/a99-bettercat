@@ -9,22 +9,13 @@ import Head from "next/head";
 const app = initFirebase();
 const auth = getAuth();
 
-<<<<<<< HEAD
-export default function Home() {
-  const [user, loading, error] = useAuthState(auth);
-
-  const [restaurants, restaurantsLoading, restaurantsError] = useCollection(collection(getFirestore(app), "restaurants"));
-
-=======
 /** Interface for the parameter of the `Home` component. */
 interface HomeProps {
   restaurants: Restaurant[];
 }
-export default function Home({restaurants}: HomeProps) {
-
+export default function Home({ restaurants }: HomeProps) {
   const [user, loading, error] = useAuthState(auth);
 
->>>>>>> fce874d8ee9b18b4b33edd1f1a63f0fac4510293
   if (error) {
     return (
       <div>
@@ -41,15 +32,9 @@ export default function Home({restaurants}: HomeProps) {
         <p>Signed In User: {user.email}</p>
         <button onClick={() => auth.signOut()}>Sign out</button>
         <h1>Restaurants</h1>
-<<<<<<< HEAD
-        {restaurants?.docs.map((doc) => (
-          <p>{doc.get("name")}</p>
+        {restaurants?.map((restaurant) => (
+          <p>{restaurant.name}</p>
         ))}
-=======
-        {restaurants?.map((restaurant) =>
-          <p>{restaurant.name}</p>)
-        }
->>>>>>> fce874d8ee9b18b4b33edd1f1a63f0fac4510293
       </div>
     );
   }
@@ -60,14 +45,13 @@ export default function Home({restaurants}: HomeProps) {
   );
 }
 
-import * as DataService from '@/lib/DataService'
-import Restaurant from '@/models/Restaurant';
+import * as DataService from "@/lib/DataService";
+import Restaurant from "@/models/Restaurant";
 
 export async function getStaticProps() {
+  const restaurants = await DataService.getAllRestaurants();
 
-    const restaurants = await DataService.getAllRestaurants();
-
-    return {props: { restaurants: restaurants} }
+  return { props: { restaurants: restaurants } };
 }
 
 const authenticate = () => {
