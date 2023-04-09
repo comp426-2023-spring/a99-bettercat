@@ -11,9 +11,10 @@ const auth = getAuth();
 /** Interface for the parameter of the `ProgramView` component. */
 interface RestaurantProps {
     restaurant: Restaurant;
+    reviews: Review[];
 }
 
-export default function RestaurantView({restaurant}: RestaurantProps) {
+export default function RestaurantView({restaurant, reviews}: RestaurantProps) {
 
   /* Load user authentication hook
    - user: Once authenticated user loads, user !== null.
@@ -28,6 +29,13 @@ export default function RestaurantView({restaurant}: RestaurantProps) {
      <div>
          <h1>Restaurant</h1>
          <h3>{restaurant.name}</h3>
+         <h2>Reviews</h2>
+         {reviews?.map((reviews) =>
+          <>
+            <p><strong>{reviews.score}/5</strong></p>
+            <p>{reviews.text}</p>
+          </>)
+        }
        </div>
    );
 }
@@ -50,6 +58,7 @@ import * as DataService from '@/lib/DataService'
 import { ParsedUrlQuery } from "querystring";
 import Restaurant from "@/models/Restaurant";
 import { useAuthState } from "react-firebase-hooks/auth";
+import Review from "@/models/Review";
 
 interface RestaurantParams extends ParsedUrlQuery {
     slug: string
@@ -62,6 +71,6 @@ export async function getStaticProps(context: GetStaticPropsContext) {
 
     // Get restaurant data
     const restaurant = await DataService.getRestaurant(Array.isArray(id) ? id[0] : id!);
-
-    return {props: {restaurant: restaurant} }
+    const reviews = await DataService.getReviewsForRestaurant(Array.isArray(id) ? id[0] : id!);
+    return {props: {restaurant: restaurant, reviews: reviews} }
 }
