@@ -1,6 +1,7 @@
 import { initFirebase } from "@/firebase/clientApp"
 import Restaurant from "@/models/Restaurant";
 import Review from "@/models/Review";
+import User from "@/models/User";
 import { QueryDocumentSnapshot, collection, doc, getDoc, getDocs, getFirestore, query, where } from "firebase/firestore";
 
 // Connect to Firebase Firestore
@@ -71,4 +72,18 @@ export const getReviewsFromUser = async (userId: number) => {
     const reviews: Review[] = querySnapshot.docs.map((review) => review.data());
 
     return reviews;
+}
+
+/**
+ * Fetches user with provided ID from the database.
+ * @param number the ID of the user to look up.
+ * @returns the user from the database.
+ */
+export const getUser = async (id: number) => {
+    const restaurantCollection = collection(firestore, "users").withConverter(converter<User>());
+    const docReference = doc(restaurantCollection, id.toString());
+    const querySnapshot = await getDoc(docReference);
+    const user: User | undefined = querySnapshot.data()
+
+    return user;
 }
