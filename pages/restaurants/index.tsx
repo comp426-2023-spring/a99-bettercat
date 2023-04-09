@@ -10,10 +10,10 @@ const app = initFirebase();
 const auth = getAuth();
 
 /** Interface for the parameter of the `Home` component. */
-interface HomeProps {
+interface RestaurantsProps {
   restaurants: Restaurant[];
 }
-export default function Home({restaurants}: HomeProps) {
+export default function Restaurants({restaurants}: RestaurantsProps) {
 
   /* Load user authentication hook
    - user: Once authenticated user loads, user !== null.
@@ -23,36 +23,14 @@ export default function Home({restaurants}: HomeProps) {
    */
   const [user, loading, error] = useAuthState(auth);
 
-  // Render a page when there is an error loading the authentication state
-  if (error) {
-    return (
-      <div>
-        <p>Error: {error.message}</p>
-      </div>
-    );
-  }
-  // Render a page when the authentication state is loading
-  if (loading) {
-    return <p>Loading...</p>;
-  }
-  // Render a page when a user is signed in and stores user data in object `user`
-  if (user) {
-    return (
-      <div>
-        <p>Signed In User: {user.email}</p>
-        <button onClick={() => auth.signOut()}>Sign out</button>
+  // Render page
+  return(
+    <div>
         <h1>Restaurants</h1>
         {restaurants?.map((restaurant) =>
           <p>{restaurant.name}</p>)
         }
       </div>
-    );
-  }
-  // Render a page when a user is not signed in
-  return (
-    <div className="App">
-      <button onClick={() => authenticate()}>Sign In</button>
-    </div>
   );
 }
 
