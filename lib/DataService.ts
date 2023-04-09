@@ -1,7 +1,8 @@
 import { initFirebase } from "@/firebase/clientApp"
 import Restaurant from "@/models/Restaurant";
 import Review from "@/models/Review";
-import { QueryDocumentSnapshot, collection, doc, getDoc, getDocs, getFirestore, query, where } from "firebase/firestore";
+import User from "@/models/User";
+import { QueryDocumentSnapshot, collection, doc, getDoc, getDocs, getFirestore, query, setDoc, where } from "firebase/firestore";
 
 // Connect to Firebase Firestore
 const app = initFirebase();
@@ -71,4 +72,51 @@ export const getReviewsFromUser = async (userId: number) => {
     const reviews: Review[] = querySnapshot.docs.map((review) => review.data());
 
     return reviews;
+}
+
+/**
+ * Fetches user with provided ID from the database.
+ * @param string the ID of the user to look up.
+ * @returns the user from the database.
+ */
+export const getUser = async (id: string) => {
+    const userCollection = collection(firestore, "users").withConverter(converter<User>());
+    const docReference = doc(userCollection, id);
+    const querySnapshot = await getDoc(docReference);
+    const user: User | undefined = querySnapshot.data()
+
+    return user;
+}
+
+/**
+ * Creates new restaurant in the database.
+ * @param Restaurant the restaurant to add.
+ */
+export const createRestaurant = async (restaurant: Restaurant) => {
+    const restaurantCollection = collection(firestore, "restaurants").withConverter(converter<Restaurant>());
+    const docReference = doc(restaurantCollection);
+
+    await setDoc(docReference, restaurant);
+}
+
+/**
+ * Creates new user in the database.
+ * @param User the user to add.
+ */
+export const createUser = async (user: User) => {
+    const userCollection = collection(firestore, "users").withConverter(converter<User>());
+    const docReference = doc(userCollection);
+
+    await setDoc(docReference, user);
+}
+
+/**
+ * Creates new review in the database.
+ * @param Review the review to add.
+ */
+export const createReview = async (review: Review) => {
+    const reviewsCollection = collection(firestore, "reviews").withConverter(converter<Review>());
+    const docReference = doc(reviewsCollection);
+
+    await setDoc(docReference, review);
 }
