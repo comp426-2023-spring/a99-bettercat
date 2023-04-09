@@ -14,7 +14,7 @@ export default async function handle(req: NextApiRequest, res: NextApiResponse) 
         const restaurantId = req.query.id;
 
         // Attempt to find restarant for ID        
-        const restaurant = await DataService.getRestaurant(Array.isArray(restaurantId) ? +restaurantId[0] : +restaurantId!)
+        const restaurant = await DataService.getRestaurant(Array.isArray(restaurantId) ? restaurantId[0] : restaurantId!)
 
         // Check if restaurant found
         if(restaurant !== null) {
