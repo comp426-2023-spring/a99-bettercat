@@ -1,4 +1,4 @@
-import { initFirebase } from "@/firebase/clientApp"
+import { initFirebase } from "@/firebase/clientApp";
 import Restaurant from "@/models/Restaurant";
 import Review from "@/models/Review";
 import { QueryDocumentSnapshot, collection, doc, getDoc, getDocs, getFirestore, query, where } from "firebase/firestore";
@@ -15,21 +15,21 @@ const firestore = getFirestore(app);
  * to data types specified in `/models`.
  */
 const converter = <T>() => ({
-    toFirestore: (data: T) => data,
-    fromFirestore: (snapshot: QueryDocumentSnapshot) => snapshot.data() as T
-  })
+  toFirestore: (data: T) => data,
+  fromFirestore: (snapshot: QueryDocumentSnapshot) => snapshot.data() as T,
+});
 
 /**
  * Fetches all restaurants from the database.
  * @returns the list of restaurants from the database.
  */
 export const getAllRestaurants = async () => {
-    const restaurantCollection = collection(firestore, "restaurants").withConverter(converter<Restaurant>());
-    const querySnapshot = await getDocs(restaurantCollection);
-    const restaurants: Restaurant[] = querySnapshot.docs.map((doc) => doc.data());
+  const restaurantCollection = collection(firestore, "restaurants").withConverter(converter<Restaurant>());
+  const querySnapshot = await getDocs(restaurantCollection);
+  const restaurants: Restaurant[] = querySnapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
 
-    return restaurants;
-}
+  return restaurants;
+};
 
 /**
  * Fetches restaurant with provided ID from the database.
@@ -37,13 +37,17 @@ export const getAllRestaurants = async () => {
  * @returns the restaurant from the database.
  */
 export const getRestaurant = async (id: number) => {
-    const restaurantCollection = collection(firestore, "restaurants").withConverter(converter<Restaurant>());
-    const docReference = doc(restaurantCollection, id.toString());
-    const querySnapshot = await getDoc(docReference);
-    const restaurant: Restaurant | undefined = querySnapshot.data()
+  const restaurantCollection = collection(firestore, "restaurants").withConverter(converter<Restaurant>());
+  const docReference = doc(restaurantCollection, id.toString());
+  const querySnapshot = await getDoc(docReference);
+  // if does not exist, return undefined
+  if (!querySnapshot.exists()) {
+    return undefined;
+  }
+  const restaurant: Restaurant = { ...querySnapshot.data(), id: querySnapshot.id };
 
-    return restaurant;
-}
+  return restaurant;
+};
 
 /**
  * Fetches reviews for a restaurant from the database.
@@ -51,13 +55,13 @@ export const getRestaurant = async (id: number) => {
  * @returns the reviews from the database.
  */
 export const getReviewsForRestaurant = async (restaurantId: number) => {
-    const restaurantCollection = collection(firestore, "reviews").withConverter(converter<Review>());
-    const q = query(restaurantCollection, where("restaurantId", "==", restaurantId));
-    const querySnapshot = await getDocs(q);
-    const reviews: Review[] = querySnapshot.docs.map((review) => review.data());
+  const restaurantCollection = collection(firestore, "reviews").withConverter(converter<Review>());
+  const q = query(restaurantCollection, where("restaurantId", "==", restaurantId));
+  const querySnapshot = await getDocs(q);
+  const reviews: Review[] = querySnapshot.docs.map((review) => ({ ...review.data(), id: review.id }));
 
-    return reviews;
-}
+  return reviews;
+};
 
 /**
  * Fetches reviews written by a user from the database.
@@ -65,10 +69,10 @@ export const getReviewsForRestaurant = async (restaurantId: number) => {
  * @returns the reviews from the database.
  */
 export const getReviewsFromUser = async (userId: number) => {
-    const restaurantCollection = collection(firestore, "reviews").withConverter(converter<Review>());
-    const q = query(restaurantCollection, where("userId", "==", userId));
-    const querySnapshot = await getDocs(q);
-    const reviews: Review[] = querySnapshot.docs.map((review) => review.data());
+  const restaurantCollection = collection(firestore, "reviews").withConverter(converter<Review>());
+  const q = query(restaurantCollection, where("userId", "==", userId));
+  const querySnapshot = await getDocs(q);
+  const reviews: Review[] = querySnapshot.docs.map((review) => ({ ...review.data(), id: review.id }));
 
-    return reviews;
-}
+  return reviews;
+};
