@@ -33,10 +33,10 @@ export const getAllRestaurants = async () => {
 
 /**
  * Fetches restaurant with provided ID from the database.
- * @param number the ID of the restaurant to look up.
+ * @param string the ID of the restaurant to look up.
  * @returns the restaurant from the database.
  */
-export const getRestaurant = async (id: number) => {
+export const getRestaurant = async (id: string) => {
   const restaurantCollection = collection(firestore, "restaurants").withConverter(converter<Restaurant>());
   const docReference = doc(restaurantCollection, id.toString());
   const querySnapshot = await getDoc(docReference);
@@ -51,10 +51,10 @@ export const getRestaurant = async (id: number) => {
 
 /**
  * Fetches reviews for a restaurant from the database.
- * @param number the ID of the restaurant to look up.
+ * @param string the ID of the restaurant to look up.
  * @returns the reviews from the database.
  */
-export const getReviewsForRestaurant = async (restaurantId: number) => {
+export const getReviewsForRestaurant = async (restaurantId: string) => {
   const restaurantCollection = collection(firestore, "reviews").withConverter(converter<Review>());
   const q = query(restaurantCollection, where("restaurantId", "==", restaurantId));
   const querySnapshot = await getDocs(q);
@@ -65,10 +65,10 @@ export const getReviewsForRestaurant = async (restaurantId: number) => {
 
 /**
  * Fetches reviews written by a user from the database.
- * @param number the ID of the user to look up.
+ * @param string the ID of the user to look up.
  * @returns the reviews from the database.
  */
-export const getReviewsFromUser = async (userId: number) => {
+export const getReviewsFromUser = async (userId: string) => {
   const restaurantCollection = collection(firestore, "reviews").withConverter(converter<Review>());
   const q = query(restaurantCollection, where("userId", "==", userId));
   const querySnapshot = await getDocs(q);
