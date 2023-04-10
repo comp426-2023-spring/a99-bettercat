@@ -58,6 +58,10 @@ export const getReviewsForRestaurant = async (restaurantId: string) => {
   const restaurantCollection = collection(firestore, "reviews").withConverter(converter<Review>());
   const q = query(restaurantCollection, where("restaurantId", "==", restaurantId));
   const querySnapshot = await getDocs(q);
+  // return undefined if restaurant has no reviews
+  if (querySnapshot.empty) {
+    return undefined;
+  }
   const reviews: Review[] = querySnapshot.docs.map((review) => ({ ...review.data(), id: review.id }));
 
   return reviews;
@@ -72,6 +76,10 @@ export const getReviewsFromUser = async (userId: string) => {
   const restaurantCollection = collection(firestore, "reviews").withConverter(converter<Review>());
   const q = query(restaurantCollection, where("userId", "==", userId));
   const querySnapshot = await getDocs(q);
+  // return undefined if user has no reviews
+  if (querySnapshot.empty) {
+    return undefined;
+  }
   const reviews: Review[] = querySnapshot.docs.map((review) => ({ ...review.data(), id: review.id }));
 
   return reviews;
