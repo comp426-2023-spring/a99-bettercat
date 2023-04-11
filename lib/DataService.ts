@@ -1,6 +1,7 @@
 import { initFirebase } from "@/firebase/clientApp";
 import Restaurant from "@/models/Restaurant";
 import Review from "@/models/Review";
+import User from "@/models/User";
 import { QueryDocumentSnapshot, collection, doc, getDoc, getDocs, getFirestore, query, where } from "firebase/firestore";
 
 // Connect to Firebase Firestore
@@ -38,7 +39,7 @@ export const getAllRestaurants = async () => {
  */
 export const getRestaurant = async (id: string) => {
   const restaurantCollection = collection(firestore, "restaurants").withConverter(converter<Restaurant>());
-  const docReference = doc(restaurantCollection, id.toString());
+  const docReference = doc(restaurantCollection, id);
   const querySnapshot = await getDoc(docReference);
   // if does not exist, return undefined
   if (!querySnapshot.exists()) {
@@ -73,8 +74,8 @@ export const getReviewsForRestaurant = async (restaurantId: string) => {
  * @returns the reviews from the database.
  */
 export const getReviewsFromUser = async (userId: string) => {
-  const restaurantCollection = collection(firestore, "reviews").withConverter(converter<Review>());
-  const q = query(restaurantCollection, where("userId", "==", userId));
+  const reviewsCollection = collection(firestore, "reviews").withConverter(converter<Review>());
+  const q = query(reviewsCollection, where("userId", "==", userId));
   const querySnapshot = await getDocs(q);
   // return undefined if user has no reviews
   if (querySnapshot.empty) {
@@ -83,4 +84,18 @@ export const getReviewsFromUser = async (userId: string) => {
   const reviews: Review[] = querySnapshot.docs.map((review) => ({ ...review.data(), id: review.id }));
 
   return reviews;
+};
+
+/**
+ * Fetches user with provided ID from the database.
+ * @param string the ID of the user to look up.
+ * @returns the user from the database.
+ */
+export const getUser = async (id: string) => {
+  const userCollection = collection(firestore, "users").withConverter(converter<User>());
+  const docReference = doc(userCollection, id);
+  const querySnapshot = await getDoc(docReference);
+  const user: User | undefined = querySnapshot.data();
+
+  return user;
 };
