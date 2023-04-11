@@ -6,7 +6,6 @@ interface ResCardProps {
 }
 
 export default function Restaurant_card({ restaurant }: ResCardProps) {
-  console.log(restaurant);
   const priceSymbol = "$".repeat(restaurant.price);
   return (
     <div className="rounded-2xl border border-black p-6 flex flex-col gap-4">
