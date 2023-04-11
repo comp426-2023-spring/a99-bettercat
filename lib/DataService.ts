@@ -1,6 +1,10 @@
 import { initFirebase } from "@/firebase/clientApp"
 import Restaurant from "@/models/Restaurant";
 import Review from "@/models/Review";
+<<<<<<< HEAD
+=======
+import User from "@/models/User";
+>>>>>>> development
 import { QueryDocumentSnapshot, collection, doc, getDoc, getDocs, getFirestore, query, where } from "firebase/firestore";
 
 // Connect to Firebase Firestore
@@ -33,12 +37,21 @@ export const getAllRestaurants = async () => {
 
 /**
  * Fetches restaurant with provided ID from the database.
+<<<<<<< HEAD
  * @param number the ID of the restaurant to look up.
  * @returns the restaurant from the database.
  */
 export const getRestaurant = async (id: number) => {
     const restaurantCollection = collection(firestore, "restaurants").withConverter(converter<Restaurant>());
     const docReference = doc(restaurantCollection, id.toString());
+=======
+ * @param string the ID of the restaurant to look up.
+ * @returns the restaurant from the database.
+ */
+export const getRestaurant = async (id: string) => {
+    const restaurantCollection = collection(firestore, "restaurants").withConverter(converter<Restaurant>());
+    const docReference = doc(restaurantCollection, id);
+>>>>>>> development
     const querySnapshot = await getDoc(docReference);
     const restaurant: Restaurant | undefined = querySnapshot.data()
 
@@ -47,12 +60,21 @@ export const getRestaurant = async (id: number) => {
 
 /**
  * Fetches reviews for a restaurant from the database.
+<<<<<<< HEAD
  * @param number the ID of the restaurant to look up.
  * @returns the reviews from the database.
  */
 export const getReviewsForRestaurant = async (restaurantId: number) => {
     const restaurantCollection = collection(firestore, "reviews").withConverter(converter<Review>());
     const q = query(restaurantCollection, where("restaurantId", "==", restaurantId));
+=======
+ * @param string the ID of the restaurant to look up.
+ * @returns the reviews from the database.
+ */
+export const getReviewsForRestaurant = async (restaurantId: string) => {
+    const reviewsCollection = collection(firestore, "reviews").withConverter(converter<Review>());
+    const q = query(reviewsCollection, where("restaurantId", "==", restaurantId));
+>>>>>>> development
     const querySnapshot = await getDocs(q);
     const reviews: Review[] = querySnapshot.docs.map((review) => review.data());
 
@@ -61,14 +83,40 @@ export const getReviewsForRestaurant = async (restaurantId: number) => {
 
 /**
  * Fetches reviews written by a user from the database.
+<<<<<<< HEAD
  * @param number the ID of the user to look up.
  * @returns the reviews from the database.
  */
 export const getReviewsFromUser = async (userId: number) => {
     const restaurantCollection = collection(firestore, "reviews").withConverter(converter<Review>());
     const q = query(restaurantCollection, where("userId", "==", userId));
+=======
+ * @param string the ID of the user to look up.
+ * @returns the reviews from the database.
+ */
+export const getReviewsFromUser = async (userId: string) => {
+    const reviewsCollection = collection(firestore, "reviews").withConverter(converter<Review>());
+    const q = query(reviewsCollection, where("userId", "==", userId));
+>>>>>>> development
     const querySnapshot = await getDocs(q);
     const reviews: Review[] = querySnapshot.docs.map((review) => review.data());
 
     return reviews;
+<<<<<<< HEAD
+=======
+}
+
+/**
+ * Fetches user with provided ID from the database.
+ * @param string the ID of the user to look up.
+ * @returns the user from the database.
+ */
+export const getUser = async (id: string) => {
+    const userCollection = collection(firestore, "users").withConverter(converter<User>());
+    const docReference = doc(userCollection, id);
+    const querySnapshot = await getDoc(docReference);
+    const user: User | undefined = querySnapshot.data()
+
+    return user;
+>>>>>>> development
 }

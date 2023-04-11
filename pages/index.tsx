@@ -13,9 +13,23 @@ const auth = getAuth();
 interface HomeProps {
   restaurants: Restaurant[];
 }
+<<<<<<< HEAD
 export default function Home({ restaurants }: HomeProps) {
   const [user, loading, error] = useAuthState(auth);
 
+=======
+export default function Home({restaurants}: HomeProps) {
+
+  /* Load user authentication hook
+   - user: Once authenticated user loads, user !== null.
+   - loading: If authenticated state is loading, loading !== null.
+   - error: If there was an error loading authentication, error !== null.
+   > If all the above == null, then it means that no user is currently signed in.
+   */
+  const [user, loading, error] = useAuthState(auth);
+
+  // Render a page when there is an error loading the authentication state
+>>>>>>> development
   if (error) {
     return (
       <div>
@@ -23,21 +37,30 @@ export default function Home({ restaurants }: HomeProps) {
       </div>
     );
   }
+  // Render a page when the authentication state is loading
   if (loading) {
     return <p>Loading...</p>;
   }
+  // Render a page when a user is signed in and stores user data in object `user`
   if (user) {
     return (
       <div>
         <p>Signed In User: {user.email}</p>
         <button onClick={() => auth.signOut()}>Sign out</button>
         <h1>Restaurants</h1>
+<<<<<<< HEAD
         {restaurants?.map((restaurant) => (
           <p>{restaurant.name}</p>
         ))}
+=======
+        {restaurants?.map((restaurant) =>
+          <p>{restaurant.name}</p>)
+        }
+>>>>>>> development
       </div>
     );
   }
+  // Render a page when a user is not signed in
   return (
     <div className="App">
       <button onClick={() => authenticate()}>Sign In</button>
@@ -45,6 +68,7 @@ export default function Home({ restaurants }: HomeProps) {
   );
 }
 
+<<<<<<< HEAD
 import * as DataService from "@/lib/DataService";
 import Restaurant from "@/models/Restaurant";
 
@@ -54,6 +78,24 @@ export async function getStaticProps() {
   return { props: { restaurants: restaurants } };
 }
 
+=======
+import * as DataService from '@/lib/DataService'
+import Restaurant from '@/models/Restaurant';
+
+/**
+ * Loads data on the server side as the page loads.
+ * @returns properties for the `index` page with the data loaded.
+ */
+export async function getStaticProps() {
+
+    const restaurants = await DataService.getAllRestaurants();
+    return {props: { restaurants: restaurants} }
+}
+
+/**
+ * Helper method that allows authentication with the Firebase Google auth provider.
+ */
+>>>>>>> development
 const authenticate = () => {
   const provider = new GoogleAuthProvider();
   signInWithPopup(auth, provider);
