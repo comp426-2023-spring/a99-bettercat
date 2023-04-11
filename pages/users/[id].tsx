@@ -8,13 +8,13 @@ import { useCollection } from "react-firebase-hooks/firestore";
 const app = initFirebase();
 const auth = getAuth();
 
-/** Interface for the parameter of the `RestaurantView` component. */
-interface RestaurantProps {
-    restaurant: Restaurant;
+/** Interface for the parameter of the `UserView` component. */
+interface UserProps {
+    dbUser: User;
     reviews: Review[];
 }
 
-export default function RestaurantView({restaurant, reviews}: RestaurantProps) {
+export default function UserView({dbUser, reviews}: UserProps) {
 
   /* Load user authentication hook
    - user: Once authenticated user loads, user !== null.
@@ -27,8 +27,8 @@ export default function RestaurantView({restaurant, reviews}: RestaurantProps) {
    // Render page
    return(
      <div>
-         <h1>Restaurant</h1>
-         <h3>{restaurant.name}</h3>
+         <h1>User</h1>
+         <h3>{user?.displayName}</h3>
          <h2>Reviews</h2>
          {reviews?.map((reviews) =>
           <>
@@ -59,8 +59,9 @@ import { ParsedUrlQuery } from "querystring";
 import Restaurant from "@/models/Restaurant";
 import { useAuthState } from "react-firebase-hooks/auth";
 import Review from "@/models/Review";
+import User from "@/models/User";
 
-interface RestaurantParams extends ParsedUrlQuery {
+interface UserParams extends ParsedUrlQuery {
     slug: string
 }
 
@@ -71,10 +72,10 @@ interface RestaurantParams extends ParsedUrlQuery {
 export async function getStaticProps(context: GetStaticPropsContext) {
 
     // Get router and ID from the URL.
-    const { id } = context.params as RestaurantParams
+    const { id } = context.params as UserParams
 
     // Get restaurant data
-    const restaurant = await DataService.getRestaurant(Array.isArray(id) ? id[0] : id!);
-    const reviews = await DataService.getReviewsForRestaurant(Array.isArray(id) ? id[0] : id!);
-    return {props: {restaurant: restaurant, reviews: reviews} }
+    const dbUser = await DataService.getUser(Array.isArray(id) ? id[0] : id!);
+    const reviews = await DataService.getReviewsFromUser(Array.isArray(id) ? id[0] : id!);
+    return {props: {user: dbUser, reviews: reviews} }
 }
