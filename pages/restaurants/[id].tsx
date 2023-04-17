@@ -27,7 +27,7 @@ export default function RestaurantView({restaurant, reviews, average_review}: Re
 
    // Render page
    return(
-     <div>
+     <div className="flex flex-col bg-slate-300 min-h-screen p-10">
          <h3 className ="mb-4 text-center text-4xl font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-6xl dark:text-white">{restaurant.name}</h3>
          <h3 className = "mb-6 text-lg font-normal text-gray-500 lg:text-xl sm:px-16 xl:px-48 dark:text-gray-400">{restaurant.description}</h3>
          <div className="content-center">
@@ -43,14 +43,18 @@ export default function RestaurantView({restaurant, reviews, average_review}: Re
         
          
         
-        <h2 className=" text-center font-bold">Reviews</h2>
-         <div className= "outline">
-         {reviews?.map((reviews) =>
-          <>
-            <p><strong>{reviews.score}/5</strong></p>
-            <p>{reviews.text}</p>
-          </>)
-        }
+        <div className="bg-white rounded-lg p-10 drop-shadow-lg">
+            <div className= "flex flex-row">
+            {reviews?.map((reviews) =>
+            <>
+                <div className="p-10 rounded-lg divide-gray-600">
+                    <p><strong>{reviews.score}/5</strong></p>
+                    <p>{reviews.text}</p>
+                </div>
+                
+            </>)
+            }
+            </div>
          </div>
          
        </div>
