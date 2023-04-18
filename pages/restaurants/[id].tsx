@@ -39,6 +39,68 @@ export default function RestaurantView({restaurant, reviews, average_review}: Re
         <div className="flex flex-row pd- 10 space-x-5">
             <div className="bg-white rounded-lg p-10 drop-shadow-lg grow">
                 <h1 className="font-extrabold text-3xl">General Info</h1>
+                <div className="flex flex-row ">
+                    <table>
+                        <tr>
+                            <th>Day</th>
+                            <th>Times</th>
+                        </tr>
+                        <tr> 
+                            <td>Sunday</td>
+                            <td>{restaurant.hours.sunday.open + " - " + restaurant.hours.sunday.close}</td>
+                        </tr>
+                        <tr>
+                            <td>Monday</td>
+                            <td>{restaurant.hours.monday.open + " - " + restaurant.hours.monday.close}</td>
+                        </tr>
+                        <tr> 
+                            <td>Tuesday</td>
+                            <td>{restaurant.hours.tuesday.open + " - " + restaurant.hours.tuesday.close}</td>
+                        </tr>
+                        <tr> 
+                            <td>Wednesday</td>
+                            <td>{restaurant.hours.wednesday.open + " - " + restaurant.hours.wednesday.close}</td>
+                        </tr>
+                        <tr> 
+                            <td>Thursday</td>
+                            <td>{restaurant.hours.thursday.open + " - " + restaurant.hours.thursday.close}</td>
+                        </tr>
+                        <tr> 
+                            <td>Friday</td>
+                            <td>{restaurant.hours.friday.open + " - " + restaurant.hours.friday.close}</td>
+                        </tr>
+                        <tr> 
+                            <td>Saturday</td>
+                            <td>{restaurant.hours.saturday.open + " - " + restaurant.hours.saturday.close}</td>
+                        </tr>
+                    </table>
+                    <div className="align-middle">
+                        <strong>
+                            Address
+                        </strong>
+                            <p>
+                                {restaurant.address}
+                            </p>
+                        <strong>
+                            Phone
+                        </strong>
+                            <p>
+                                {restaurant.phone}
+                            </p>
+                        <strong>
+                            Price
+                        </strong>
+                            <p>
+                                {restaurant.price}
+                            </p>
+                        <strong>
+                            Category
+                        </strong>
+                            <p>
+                                {restaurant.category}
+                            </p>
+                    </div>
+                </div>
             </div>
             <div className="bg-white rounded-lg p-10 drop-shadow-lg grow">
                 <h1 className="font-extrabold text-3xl">Map</h1>
