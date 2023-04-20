@@ -4,9 +4,15 @@ import { initFirebase } from '@/firebase/clientApp'
 import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 import { getFirestore, collection } from "firebase/firestore";
 import { useCollection } from "react-firebase-hooks/firestore";
+import { useLoadScript, GoogleMap, MarkerF } from '@react-google-maps/api';
+import { useMemo } from 'react';
+import Geocode from "react-geocode";
+import { useState, useEffect } from "react";
+import { Loader } from '@googlemaps/js-api-loader';
 
 const app = initFirebase();
 const auth = getAuth();
+
 
 /** Interface for the parameter of the `RestaurantView` component. */
 interface RestaurantProps {
@@ -15,15 +21,45 @@ interface RestaurantProps {
     average_review: Number;
 }
 
-export default function RestaurantView({restaurant, reviews, average_review}: RestaurantProps) {
 
-  /* Load user authentication hook
+export default function RestaurantView({restaurant, reviews, average_review}: RestaurantProps) {
+    const [lat, setLat] = useState(null);
+    const [lng, setLng] = useState(null);
+    
+    /* Load user authentication hook
    - user: Once authenticated user loads, user !== null.
    - loading: If authenticated state is loading, loading !== null.
    - error: If there was an error loading authentication, error !== null.
    > If all the above == null, then it means that no user is currently signed in.
    */
-   const [user, loading, error] = useAuthState(auth);
+  const [user, loading, error] = useAuthState(auth);
+  const libraries = useMemo(() => ['places'], []);
+
+  const mapCenter = useMemo(
+    () => ({ lat: Number(lat), lng: Number(lng)}),
+    [lat, lng]
+  );
+
+
+  const mapOptions = useMemo<google.maps.MapOptions>(
+    () => ({
+      disableDefaultUI: true,
+      clickableIcons: true,
+      scrollwheel: false,
+    }),
+    []
+  );
+
+  const { isLoaded } = useLoadScript({
+    googleMapsApiKey: process.env.NEXT_PUBLIC_GOOGLE_MAPS_KEY as string,
+    libraries: libraries as any,
+  });
+
+  if (!isLoaded) {
+    return <p>Loading...</p>;
+  }
+  
+  Geocode.setApiKey(process.env.NEXT_PUBLIC_GOOGLE_MAPS_KEY as string);
 
    // Render page
    return(
@@ -39,7 +75,7 @@ export default function RestaurantView({restaurant, reviews, average_review}: Re
         <div className="flex flex-row pd- 10 space-x-5">
             <div className="bg-white rounded-lg p-10 drop-shadow-lg grow">
                 <h1 className="font-extrabold text-3xl">General Info</h1>
-                <div className="flex flex-row ">
+                <div>
                     <table>
                         <tr>
                             <th>Day</th>
@@ -104,6 +140,28 @@ export default function RestaurantView({restaurant, reviews, average_review}: Re
             </div>
             <div className="bg-white rounded-lg p-10 drop-shadow-lg grow">
                 <h1 className="font-extrabold text-3xl">Map</h1>
+                <div className="self-center">
+                    <GoogleMap
+                        options={mapOptions}
+                        zoom={17}
+                        center={mapCenter}
+                        mapTypeId={google.maps.MapTypeId.ROADMAP}
+                        mapContainerStyle={{ width: '20rem', height: '20rem' }}
+                        onLoad={() => {
+                                Geocode.fromAddress(restaurant.address).then((results) => {
+                                  const { lat, lng } = results.results[0].geometry.location;
+                                  setLat(lat);
+                                  setLng(lng);
+                                });
+                        }}
+                    >
+                    <MarkerF
+                    position={mapCenter}
+                    onLoad={() => console.log('Marker Loaded')}
+                    />
+                    </GoogleMap> 
+                </div>
+                
             </div>
         </div> 
         <div className="bg-white rounded-lg p-10 drop-shadow-lg">
@@ -165,8 +223,18 @@ export async function getStaticProps(context: GetStaticPropsContext) {
     // Get restaurant data
     const restaurant = await DataService.getRestaurant(Array.isArray(id) ? id[0] : id!);
     const reviews = await DataService.getReviewsForRestaurant(Array.isArray(id) ? id[0] : id!);
+    
+    //Calculate Avg Review
     var average_review
     for(let review of reviews)
         average_review = (review.score / reviews.length) * reviews.length
+
+
+    //Geocode Address to obtain latitude and longitude
+    var latitude
+    var longitude
+
     return {props: {restaurant: restaurant, reviews: reviews, average_review: average_review} }
+
+
 }
