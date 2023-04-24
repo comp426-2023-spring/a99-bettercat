@@ -127,7 +127,15 @@ export default function RestaurantView({restaurant, reviews, average_review}: Re
                             Price
                         </strong>
                             <p>
-                                {restaurant.price}
+                            {(() => {
+                                switch (restaurant.price) {
+                                case 1:   return "$";
+                                case 2:   return "$$";
+                                case 3:   return "$$$";
+                                case 4:   return "$$$$";
+                                default:  return "no price";
+                                }
+                            })()}
                             </p>
                         <strong>
                             Category

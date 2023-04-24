@@ -56,6 +56,7 @@ export const getReviewsForRestaurant = async (restaurantId: string) => {
     const q = query(reviewsCollection, where("restaurantId", "==", restaurantId));
     const querySnapshot = await getDocs(q);
     const reviews: Review[] = querySnapshot.docs.map((review) => review.data());
+    // const reviews: Review | undefined = querySnapshot.data()
 
     return reviews;
 }
