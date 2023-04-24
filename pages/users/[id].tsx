@@ -5,6 +5,7 @@ import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 import { getFirestore, collection } from "firebase/firestore";
 import { useCollection } from "react-firebase-hooks/firestore";
 
+
 const app = initFirebase();
 const auth = getAuth();
 
@@ -16,72 +17,51 @@ interface UserProps {
 
 export default function UserView({dbUser, reviews}: UserProps) {
 
-  /* Load user authentication hook
-   - user: Once authenticated user loads, user !== null.
-   - loading: If authenticated state is loading, loading !== null.
-   - error: If there was an error loading authentication, error !== null.
-   > If all the above == null, then it means that no user is currently signed in.
-   */
-   const [user, loading, error] = useAuthState(auth);
+    /* Load user authentication hook
+     - user: Once authenticated user loads, user !== null.
+     - loading: If authenticated state is loading, loading !== null.
+     - error: If there was an error loading authentication, error !== null.
+     > If all the above == null, then it means that no user is currently signed in.
+     */
+    const [user, loading, error] = useAuthState(auth);
 
-   return(
-    <div className="flex flex-col bg-slate-300 min-h-screen p-10 space-y-5">
-        <h3 className ="mb-4 text-center text-4xl font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-6xl dark:text-white">{"User: " + user?.displayName}</h3>
-    
-        <div className="self-center">
-       </div>
-       <div className="flex flex-row pd- 10 space-x-5">
-           <div className="bg-white rounded-lg p-10 drop-shadow-lg grow">
-               <h1 className="font-extrabold text-3xl">Favorite Categories</h1>
-           </div>
-           <div className="bg-white rounded-lg p-10 drop-shadow-lg grow">
-               <h1 className="font-extrabold text-3xl">Favorite Restaurants</h1>
-           </div>
-       </div> 
-       <div className="bg-white rounded-lg p-10 drop-shadow-lg">
-           <h1 className="font-extrabold text-3xl">Reviews</h1>
-           <div className= "flex flex-row">
-           {dbUser?.favoriteRestaurants.map((restaurant) =>
-           <>
-               <div className="p-10 rounded-lg bg-slate-400">
-                   <p className="align-middle"><strong>{restaurant.toString()}</strong></p> 
-               </div>
-               
-           </>)
-           }
-           </div>
+    return (
+        <div className="flex flex-col bg-slate-300 min-h-screen p-10 space-y-5">
+            <h3 className="mb-4 text-center text-4xl font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-6xl dark:text-white">{"User: " + user?.displayName}</h3>
+
+            <div className="self-center">
+            </div>
+            <div className="flex flex-row pd- 10 space-x-5">
+                <div className="bg-white rounded-lg p-10 drop-shadow-lg grow">
+                    <h1 className="font-extrabold text-3xl">My Favorite Categories</h1>
+                </div>
+                <div className="bg-white rounded-lg p-10 drop-shadow-lg grow">
+                    <h1 className="font-extrabold text-3xl">My Favorite Restaurants</h1>
+                </div>
+            </div>
+            <div className="bg-white rounded-lg p-10 drop-shadow-lg">
+                <h1 className="font-extrabold text-3xl">My Reviews</h1>
+                {reviews.length === 0 ? (
+                    <p>You have not written any reviews yet.</p>
+                ) : (
+                    <ul>
+                        {reviews.map((review) => (
+                            <li key={review.id}>
+                                <p><strong>{review.score}/5</strong></p>
+                                <p>{review.text}</p>
+                            </li>
+                        ))}
+                    </ul>
+                )}
+            </div>
+            <div>
+                <h3>{reviews.length} review(s)</h3>
+            </div>
+
         </div>
-        <div>
-           <h3>{reviews.length} review(s)</h3>
-       </div>
-        
-      </div>
-  );
-
-
-
-
-
-   // Render page
-//    return(
-//      <div>
-//          <h1>User</h1>
-//          <h3>{user?.displayName}</h3>
-//          <h2>Reviews</h2>
-//          {reviews?.map((reviews) =>
-//           <>
-//             <p><strong>{reviews.score}/5</strong></p>
-//             <p>{reviews.text}</p>
-//           </>)
-//         }
-//        </div>
-//    );
+    );
 }
 
-/**
- * Returns that paths that have to be created at build time.
- * @returns static paths.
- */
 export const getStaticPaths: GetStaticPaths<{ id: string }> = async () => {
 
     // Return such that no pages need to be created at build time,
