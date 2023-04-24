@@ -59,19 +59,13 @@ export default function Home({restaurants}: HomeProps) {
 import * as DataService from '@/lib/DataService'
 import Restaurant from '@/models/Restaurant';
 
-/**
- * Loads data on the server side as the page loads.
- * @returns properties for the `index` page with the data loaded.
- */
 export async function getStaticProps() {
 
     const restaurants = await DataService.getAllRestaurants();
+
     return {props: { restaurants: restaurants} }
 }
 
-/**
- * Helper method that allows authentication with the Firebase Google auth provider.
- */
 const authenticate = () => {
   const provider = new GoogleAuthProvider();
   signInWithPopup(auth, provider);
