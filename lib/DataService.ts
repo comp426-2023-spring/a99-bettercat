@@ -27,7 +27,7 @@ const converter = <T>() => ({
 export const getAllRestaurants = async () => {
   const restaurantCollection = collection(firestore, "restaurants").withConverter(converter<Restaurant>());
   const querySnapshot = await getDocs(restaurantCollection);
-  const restaurants: Restaurant[] = querySnapshot.docs.map((doc) => doc.data());
+  const restaurants: Restaurant[] = querySnapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
 
   return restaurants;
 };
@@ -41,7 +41,11 @@ export const getRestaurant = async (id: string) => {
   const restaurantCollection = collection(firestore, "restaurants").withConverter(converter<Restaurant>());
   const docReference = doc(restaurantCollection, id);
   const querySnapshot = await getDoc(docReference);
-  const restaurant: Restaurant | undefined = querySnapshot.data();
+  // if does not exist, return undefined
+  if (!querySnapshot.exists()) {
+    return undefined;
+  }
+  const restaurant: Restaurant = { ...querySnapshot.data(), id: querySnapshot.id };
 
   return restaurant;
 };
@@ -52,10 +56,14 @@ export const getRestaurant = async (id: string) => {
  * @returns the reviews from the database.
  */
 export const getReviewsForRestaurant = async (restaurantId: string) => {
-  const reviewsCollection = collection(firestore, "reviews").withConverter(converter<Review>());
-  const q = query(reviewsCollection, where("restaurantId", "==", restaurantId));
+  const restaurantCollection = collection(firestore, "reviews").withConverter(converter<Review>());
+  const q = query(restaurantCollection, where("restaurantId", "==", restaurantId));
   const querySnapshot = await getDocs(q);
-  const reviews: Review[] = querySnapshot.docs.map((review) => review.data());
+  // return undefined if restaurant has no reviews
+  if (querySnapshot.empty) {
+    return undefined;
+  }
+  const reviews: Review[] = querySnapshot.docs.map((review) => ({ ...review.data(), id: review.id }));
 
   return reviews;
 };
@@ -69,7 +77,11 @@ export const getReviewsFromUser = async (userId: string) => {
   const reviewsCollection = collection(firestore, "reviews").withConverter(converter<Review>());
   const q = query(reviewsCollection, where("userId", "==", userId));
   const querySnapshot = await getDocs(q);
-  const reviews: Review[] = querySnapshot.docs.map((review) => review.data());
+  // return undefined if user has no reviews
+  if (querySnapshot.empty) {
+    return undefined;
+  }
+  const reviews: Review[] = querySnapshot.docs.map((review) => ({ ...review.data(), id: review.id }));
 
   return reviews;
 };
