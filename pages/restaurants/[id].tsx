@@ -94,7 +94,7 @@ export default function RestaurantView({restaurant, reviews, average_review}: Re
                             <td className="border-separate p-1">{restaurant.hours.tuesday.open + " - " + restaurant.hours.tuesday.close}</td>
                         </tr>
                         <tr> 
-                            <td>Wednesday</td>S
+                            <td>Wednesday</td>
                             <td className="border-separate p-1">{restaurant.hours.wednesday.open + " - " + restaurant.hours.wednesday.close}</td>
                         </tr>
                         <tr> 
@@ -107,7 +107,7 @@ export default function RestaurantView({restaurant, reviews, average_review}: Re
                         </tr>
                         <tr> 
                             <td>Saturday</td>
-                            <td>{restaurant.hours.saturday.open + " - " + restaurant.hours.saturday.close}</td>
+                            <td className="border-separate p-1">{restaurant.hours.saturday.open + " - " + restaurant.hours.saturday.close}</td>
                         </tr>
                     </table>
                     <div className="align-middle">
@@ -186,10 +186,10 @@ export default function RestaurantView({restaurant, reviews, average_review}: Re
             }
             </div>
          </div>
-         <div>
+         {/* <div>
             <h3>{reviews.length} review(s)</h3>
             <h3>{average_review.toString()+ "/5 stars"}</h3>
-        </div>
+        </div> */}
          
        </div>
    );
