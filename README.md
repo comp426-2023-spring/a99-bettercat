@@ -53,3 +53,7 @@ If you prefer to start up a local version of this website, follow the instructio
 5. Lastly, run the `npm run dev` command to start the project. This project should be accessible at `http://localhost:3000`.
 
 ## APIs and Documentation
+
+This website has an API accessible for use. Access documentation regarding the API [here]().
+
+In addition, the `/docs` directly includes other useful documentation files to describe the history and methodology implemented in this project. Access this directory [here]().
