@@ -22,8 +22,10 @@ export default function Restaurant_card({ restaurant }: ResCardProps) {
           <p>{restaurant.category}</p>
           <p>{priceSymbol}</p>
         </div>
+        {/* Display the hours of current weekday */}
         <p>
-          Hours Today: {Math.floor(restaurant.hours[weekDay].open / 100).toString()}:{restaurant.hours[weekDay].open.toString().slice(2)} - {Math.floor(restaurant.hours[weekDay].close / 100).toString()}:{restaurant.hours[weekDay].close.toString().slice(2)}
+          Hours {weekDay.charAt(0).toLocaleUpperCase() + weekDay.slice(1)}: {Math.floor(restaurant.hours[weekDay].open / 100).toString()}:{restaurant.hours[weekDay].open.toString().slice(2)} - {Math.floor(restaurant.hours[weekDay].close / 100).toString()}:
+          {restaurant.hours[weekDay].close.toString().slice(2)}
         </p>
       </div>
     </div>
