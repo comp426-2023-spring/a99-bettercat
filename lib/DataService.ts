@@ -103,9 +103,9 @@ export const createRestaurant = async (restaurant: Restaurant) => {
  * Creates new user in the database.
  * @param User the user to add.
  */
-export const createUser = async (user: User) => {
+export const createUser = async (user: User, uid: string | undefined) => {
     const userCollection = collection(firestore, "users").withConverter(converter<User>());
-    const docReference = doc(userCollection);
+    const docReference = doc(userCollection, uid);
 
     await setDoc(docReference, user);
 }

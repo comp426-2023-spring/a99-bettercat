@@ -63,11 +63,15 @@ const authenticate = async () => {
   const uid = user.uid;
 
   // Add the user to Firestore if it does not currently exist (i.e., new user)
-  if(!DataService.getUser(uid)) {
-    DataService.createUser({
+  const getUserResult = await DataService.getUser(uid)
+
+  console.log(getUserResult);
+
+  if(getUserResult == undefined) {
+    await DataService.createUser({
       id: uid,
       favoriteCategories: [],
       favoriteRestaurants: []
-    })
+    }, uid)
   }
 }
