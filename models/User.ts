@@ -8,7 +8,7 @@ export default interface User {
      * and name values fetched from the user's
      * connect Google account. */
 
-    id: number, // User Firestore document ID
+    id: string, // User Firestore document ID
     favoriteCategories: string[], // User's favorite restaurant categories
     favoriteRestaurants: number[], // User's favorite restaurants (stored by restaurant ID)
 

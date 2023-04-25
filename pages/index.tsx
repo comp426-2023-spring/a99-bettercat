@@ -56,7 +56,18 @@ export async function getStaticProps() {
     return {props: { restaurants: restaurants} }
 }
 
-const authenticate = () => {
+const authenticate = async () => {
   const provider = new GoogleAuthProvider();
-  signInWithPopup(auth, provider);
+  const result = await signInWithPopup(auth, provider);
+  const user = result.user;
+  const uid = user.uid;
+
+  // Add the user to Firestore if it does not currently exist (i.e., new user)
+  if(!DataService.getUser(uid)) {
+    DataService.createUser({
+      id: uid,
+      favoriteCategories: [],
+      favoriteRestaurants: []
+    })
+  }
 }
