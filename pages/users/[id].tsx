@@ -119,5 +119,5 @@ export async function getStaticProps(context: GetStaticPropsContext) {
     } catch (error) {
 
     }
-    return {props: {user: dbUser, reviews: reviews} }
+    return {props: {dbUser: dbUser, reviews: reviews} }
 }
