@@ -67,10 +67,22 @@ export async function getStaticProps() {
   return { props: { restaurants: restaurants } };
 }
 
-/**
- * Helper method that allows authentication with the Firebase Google auth provider.
- */
-const authenticate = () => {
+const authenticate = async () => {
   const provider = new GoogleAuthProvider();
-  signInWithPopup(auth, provider);
-};
+  const result = await signInWithPopup(auth, provider);
+  const user = result.user;
+  const uid = user.uid;
+
+  // Add the user to Firestore if it does not currently exist (i.e., new user)
+  const getUserResult = await DataService.getUser(uid)
+
+  console.log(getUserResult);
+
+  if(getUserResult == undefined) {
+    await DataService.createUser({
+      id: uid,
+      favoriteCategories: [],
+      favoriteRestaurants: []
+    }, uid)
+  }
+}
