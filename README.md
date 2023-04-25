@@ -8,6 +8,10 @@
 
 This is a sample overview.
 
+## Link to Website
+
+Our website is hosted live using Vercel - link here.
+
 ## Tech Stack
 
 Part of our goal for this project was to employ reliable and durable full-stack development tools and technologies. We wanted the project to be typesafe, streamlined, and fully integrated together. With this goal in mind, we employed the following technologies into our project:
@@ -38,13 +42,9 @@ Firebase is a platform of cloud computing services provided by Google. Firebase 
 Vercel, the company behind Next.js, also offers hosting. We used Vercel to host this particular project.
  -->
  
-## Link to Website
-
-Our website is hosted live using Vercel - link here.
-
 ## Getting Started
 
-If you prefer to start up a local version of this website, follow the instructions below:
+If you prefer to start up a local version of this website rather than accessing the live hosted link, follow the instructions below:
 
 1. Make sure to *clone* this respository locally. In addition, ensure that all `.env` files are used as appropriate.
 2. Ensure that your computer has *Node.js* and the *Node Package Manager (npm) installed)*. You can do this [here](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm).
