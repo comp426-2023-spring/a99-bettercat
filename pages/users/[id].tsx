@@ -34,9 +34,27 @@ export default function UserView({dbUser, reviews}: UserProps) {
             <div className="flex flex-row pd- 10 space-x-5">
                 <div className="bg-white rounded-lg p-10 drop-shadow-lg grow">
                     <h1 className="font-extrabold text-3xl">My Favorite Categories</h1>
+                    <ul>
+                        {dbUser.favoriteCategories.length === 0 ? (
+                            <li>You have not marked any favorite categories yet.</li>
+                        ) : (
+                            dbUser.favoriteCategories.map((category, index) => (
+                                <li key={index}>{category}</li>
+                            ))
+                        )}
+                    </ul>
                 </div>
                 <div className="bg-white rounded-lg p-10 drop-shadow-lg grow">
                     <h1 className="font-extrabold text-3xl">My Favorite Restaurants</h1>
+                    <ul>
+                        {dbUser.favoriteRestaurants.length === 0 ? (
+                            <li>You have not marked any favorite restaurants yet.</li>
+                        ) : (
+                            dbUser.favoriteRestaurants.map((restaurant, index) => (
+                                <li key={index}>{restaurant}</li>
+                            ))
+                        )}
+                    </ul>
                 </div>
             </div>
             <div className="bg-white rounded-lg p-10 drop-shadow-lg">
