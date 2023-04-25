@@ -35,7 +35,7 @@ export default function UserView({dbUser, reviews}: UserProps) {
                 <div className="bg-white rounded-lg p-10 drop-shadow-lg grow">
                     <h1 className="font-extrabold text-3xl">My Favorite Categories</h1>
                     <ul>
-                        {dbUser.favoriteCategories.length === 0 ? (
+                        {dbUser.favoriteCategories && dbUser.favoriteCategories.length === 0 ? (
                             <li>You have not marked any favorite categories yet.</li>
                         ) : (
                             dbUser.favoriteCategories.map((category, index) => (
@@ -47,7 +47,7 @@ export default function UserView({dbUser, reviews}: UserProps) {
                 <div className="bg-white rounded-lg p-10 drop-shadow-lg grow">
                     <h1 className="font-extrabold text-3xl">My Favorite Restaurants</h1>
                     <ul>
-                        {dbUser.favoriteRestaurants.length === 0 ? (
+                        {dbUser.favoriteRestaurants && dbUser.favoriteRestaurants.length === 0 ? (
                             <li>You have not marked any favorite restaurants yet.</li>
                         ) : (
                             dbUser.favoriteRestaurants.map((restaurant, index) => (
@@ -111,7 +111,13 @@ export async function getStaticProps(context: GetStaticPropsContext) {
     const { id } = context.params as UserParams
 
     // Get restaurant data
-    const dbUser = await DataService.getUser(Array.isArray(id) ? id[0] : id!);
+    
     const reviews = await DataService.getReviewsFromUser(Array.isArray(id) ? id[0] : id!);
+    let dbUser; 
+    try {
+        dbUser = await DataService.getUser(Array.isArray(id) ? id[0] : id!);
+    } catch (error) {
+
+    }
     return {props: {user: dbUser, reviews: reviews} }
 }
