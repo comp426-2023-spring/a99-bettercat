@@ -1,11 +1,11 @@
 import Restaurant from "@/models/Restaurant";
 import Link from "next/link";
 
-interface RestaurantCard {
+interface ResCardProps {
   restaurant: Restaurant;
 }
 
-export default function Restaurant_card({ restaurant }: RestaurantCard) {
+export default function RestaurantCard({ restaurant }: ResCardProps) {
   const weekDay = getWeekday();
   const priceSymbol = "$".repeat(restaurant.price);
   return (
