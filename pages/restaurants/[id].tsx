@@ -234,8 +234,8 @@ export async function getStaticProps(context: GetStaticPropsContext) {
     
     //Calculate Avg Review
     var average_review
-    for(let review of reviews) {
-        average_review = (review.score / reviews.length) * reviews.length
+    for(let review of reviews!) {
+        average_review = (review.score / reviews!.length) * reviews!.length
     }
 
 
