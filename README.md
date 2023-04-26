@@ -83,3 +83,23 @@ The various members of our group worked on various parts of the application. Bel
 | ---- | ---- |
 | Deploy website for live hosting to Vercel | Ajay |
 | Write Documentation Files | Ajay |
+
+## Dependency List
+
+This is the list of dependencies used in this project and their versions. All of these may be installed with the `npm install` command.
+
+```
+"@googlemaps/js-api-loader": "^1.15.1",
+"@react-google-maps/api": "^2.18.1",
+"@types/node": "18.15.10",
+"@types/react": "18.0.29",
+"@types/react-dom": "18.0.11",
+"autoprefixer": "^10.4.14",
+"firebase": "^9.18.0",
+"next": "13.2.4",
+"react": "18.2.0",
+"react-dom": "18.2.0",
+"react-firebase-hooks": "^5.1.1",
+"react-geocode": "^0.2.3",
+"typescript": "5.0.2"
+```
