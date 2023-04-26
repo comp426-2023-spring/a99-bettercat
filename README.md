@@ -74,7 +74,7 @@ The various members of our group worked on various parts of the application. Bel
 ### Frontend Tasks
 | Task | Contributors |
 | ---- | ---- |
-| Design and Implement the Home Page | ??? |
+| Design and Implement the Home Page | David and Andrew |
 | Design and Implement the Restaurants List Page | David and Andrew |
 | Design and Implement the Restaurant Detail View and add Google Maps Functionality | Will and Angelina |
 | Design and Implement the User Detail Page | Aayush and Muktha |
