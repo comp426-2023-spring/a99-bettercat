@@ -80,5 +80,6 @@ The various members of our group worked on various parts of the application. Bel
 | Design and Implement the User Detail Page | Aayush and Muktha |
 ### Deployment
 | Task | Contributors |
+| ---- | ---- |
 | Deploy website for live hosting to Vercel | Ajay |
 | Write Documentation Files | Ajay |
