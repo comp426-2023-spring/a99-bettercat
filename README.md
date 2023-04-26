@@ -57,3 +57,28 @@ If you prefer to start up a local version of this website rather than accessing 
 This website has an API accessible for use. Access documentation regarding the API [here]().
 
 In addition, the `/docs` directly includes other useful documentation files to describe the history and methodology implemented in this project. Access this directory [here]().
+
+## Group Member Responsibilities
+
+The various members of our group worked on various parts of the application. Below is a tablular representation of the contributions from all of our teammates:
+
+### Backend Tasks
+| Task | Contributors |
+| ---- | ---- |
+| Configure Next.js and Firebase | Ajay |
+| Create `DataService` to interact with the Firebase Firestore Database | Ajay |
+| Configure all API routes and connect them to the Firestore Database via the `DataService` | Ajay and David |
+| Configure Firebase Authentication and Google Sign-on | Ajay |
+| Add all sample backend data | Ajay and David |
+
+### Frontend Tasks
+| Task | Contributors |
+| ---- | ---- |
+| Design and Implement the Home Page | ??? |
+| Design and Implement the Restaurants List Page | David and Andrew |
+| Design and Implement the Restaurant Detail View and add Google Maps Functionality | Will and Angelina |
+| Design and Implement the User Detail Page | Aayush and Muktha |
+### Deployment
+| Task | Contributors |
+| Deploy website for live hosting to Vercel | Ajay |
+| Write Documentation Files | Ajay |
