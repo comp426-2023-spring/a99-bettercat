@@ -2,6 +2,7 @@ import { initFirebase } from "@/firebase/clientApp";
 import Restaurant from "@/models/Restaurant";
 import Review from "@/models/Review";
 import User from "@/models/User";
+import UserInteractionLog from "@/models/UserInteractionLog";
 import { QueryDocumentSnapshot, collection, doc, getDoc, getDocs, getFirestore, query, setDoc, where } from "firebase/firestore";
 
 // Connect to Firebase Firestore
@@ -132,4 +133,19 @@ export const createReview = async (review: Review) => {
     const docReference = doc(reviewsCollection);
 
     await setDoc(docReference, review);
+}
+
+/**
+ * Creates a new log upon user authentication.
+ * @param string the ID of the user that logged in.
+ */
+export const logUserAuthentication = async (userId: string, desc: string) => {
+  const logsCollection = collection(firestore, "logs").withConverter(converter<UserInteractionLog>());
+  const docReference = doc(logsCollection);
+
+  await setDoc(docReference, {
+    userId: userId,
+    timestamp: Date().toString(),
+    description: desc
+  })
 }
