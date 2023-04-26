@@ -1,10 +1,10 @@
-import { initFirebase } from '@/firebase/clientApp'
+import { initFirebase } from "@/firebase/clientApp";
 import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 import { getFirestore, collection } from "firebase/firestore";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useCollection } from "react-firebase-hooks/firestore";
 
-import Head from 'next/head'
+import Head from "next/head";
 
 const app = initFirebase();
 const auth = getAuth();
@@ -13,8 +13,7 @@ const auth = getAuth();
 interface RestaurantsProps {
   restaurants: Restaurant[];
 }
-export default function Restaurants({restaurants}: RestaurantsProps) {
-
+export default function Restaurants({ restaurants }: RestaurantsProps) {
   /* Load user authentication hook
    - user: Once authenticated user loads, user !== null.
    - loading: If authenticated state is loading, loading !== null.
@@ -24,27 +23,30 @@ export default function Restaurants({restaurants}: RestaurantsProps) {
   const [user, loading, error] = useAuthState(auth);
 
   // Render page
-  return(
-    <div>
-        <h1>Restaurants</h1>
-        {restaurants?.map((restaurant) =>
-          <p>{restaurant.name}</p>)
-        }
-      </div>
+  return (
+    <div className="flex flex-col bg-slate-300 min-h-screen p-10 space-y-5">
+      <h1 className="mb-4 text-center text-4xl font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-6xl dark:text-black">Chapel Hill Restaurants</h1>
+      {restaurants.map((restaurant) => (
+        <RestaurantCard
+          restaurant={restaurant}
+          key={restaurant.id}
+        />
+      ))}
+    </div>
   );
 }
 
-import * as DataService from '@/lib/DataService'
-import Restaurant from '@/models/Restaurant';
+import RestaurantCard from "@/components/RestaurantCard";
+import * as DataService from "@/lib/DataService";
+import Restaurant from "@/models/Restaurant";
 
 /**
  * Loads data on the server side as the page loads.
  * @returns properties for the `index` page with the data loaded.
  */
 export async function getStaticProps() {
-
-    const restaurants = await DataService.getAllRestaurants();
-    return {props: { restaurants: restaurants} }
+  const restaurants = await DataService.getAllRestaurants();
+  return { props: { restaurants: restaurants } };
 }
 
 /**
@@ -53,4 +55,4 @@ export async function getStaticProps() {
 const authenticate = () => {
   const provider = new GoogleAuthProvider();
   signInWithPopup(auth, provider);
-}
+};
