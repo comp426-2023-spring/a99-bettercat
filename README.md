@@ -6,7 +6,7 @@
 
 < Demo Video Here >
 
-This is a sample overview.
+The **UNC Restaurants Tracker** is an interactive web application that allows users to *view*, *rate*, and *favorite* restaurants all around UNC-Chapel Hill! Users can sign up with their existing Google account. Once signed in, users are able to see view a list of restaurants in Chapel Hill, see important information about the restaurant including opening hours, categories, their location on a map, and pricing, as well as rate restaurants. Users may also save their preferences of favorite restaurants and favorite genres.
 
 ## Link to Website
 
