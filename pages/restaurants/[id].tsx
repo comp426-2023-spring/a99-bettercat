@@ -18,7 +18,7 @@ const auth = getAuth();
 interface RestaurantProps {
     restaurant: Restaurant;
     reviews: Review[];
-    average_review: Number;
+    average_review: number;
 }
 
 
@@ -234,8 +234,9 @@ export async function getStaticProps(context: GetStaticPropsContext) {
     
     //Calculate Avg Review
     var average_review
-    for(let review of reviews)
+    for(let review of reviews) {
         average_review = (review.score / reviews.length) * reviews.length
+    }
 
 
     //Geocode Address to obtain latitude and longitude
