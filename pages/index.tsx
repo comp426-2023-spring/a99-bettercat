@@ -85,5 +85,5 @@ const authenticate = async () => {
   }
 
   // Log user authentication
-  await DataService.logUserAuthentication(uid);
+  await DataService.logUserAuthentication(uid, "auth");
 }

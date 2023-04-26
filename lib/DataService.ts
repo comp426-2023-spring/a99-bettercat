@@ -139,12 +139,13 @@ export const createReview = async (review: Review) => {
  * Creates a new log upon user authentication.
  * @param string the ID of the user that logged in.
  */
-export const logUserAuthentication = async (userId: string) => {
+export const logUserAuthentication = async (userId: string, desc: string) => {
   const logsCollection = collection(firestore, "logs").withConverter(converter<UserInteractionLog>());
   const docReference = doc(logsCollection);
 
   await setDoc(docReference, {
     userId: userId,
-    timestamp: Date().toString()
+    timestamp: Date().toString(),
+    description: desc
   })
 }
