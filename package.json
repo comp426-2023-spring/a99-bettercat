@@ -25,6 +25,7 @@
     "typescript": "5.0.2"
   },
   "devDependencies": {
+    "@types/react-geocode": "^0.2.1",
     "tailwindcss": "^3.2.7"
   }
 }
