@@ -26,13 +26,13 @@ export default function UserView({dbUser, reviews}: UserProps) {
     const [user, loading, error] = useAuthState(auth);
 
     return (
-        <div className="flex flex-col bg-slate-300 min-h-screen p-10 space-y-5">
+        <div className="flex flex-col bg-orange-50 min-h-screen p-10 space-y-5">
             <h3 className="mb-4 text-center text-4xl font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-6xl dark:text-white">{"User: " + user?.displayName}</h3>
-
             <div className="self-center">
+                
             </div>
             <div className="flex flex-row pd- 10 space-x-5">
-                <div className="bg-white rounded-lg p-10 drop-shadow-lg grow">
+                <div className="bg-green-100 rounded-lg p-10 drop-shadow-lg grow">
                     <h1 className="font-extrabold text-3xl">My Favorite Categories</h1>
                     <ul>
                         {dbUser && dbUser.favoriteCategories && dbUser.favoriteCategories.length === 0 ? (
@@ -44,7 +44,7 @@ export default function UserView({dbUser, reviews}: UserProps) {
                         )}
                     </ul>
                 </div>
-                <div className="bg-white rounded-lg p-10 drop-shadow-lg grow">
+                <div className="bg-teal-100 rounded-lg p-10 drop-shadow-lg grow">
                     <h1 className="font-extrabold text-3xl">My Favorite Restaurants</h1>
                     <ul>
                         {dbUser && dbUser.favoriteRestaurants && dbUser.favoriteRestaurants.length === 0 ? (
@@ -57,21 +57,21 @@ export default function UserView({dbUser, reviews}: UserProps) {
                     </ul>
                 </div>
             </div>
-            <div className="bg-white rounded-lg p-10 drop-shadow-lg">
-                <h1 className="font-extrabold text-3xl">My Reviews</h1>
-                {reviews.length === 0 ? (
-                    <p>You have not written any reviews yet.</p>
-                ) : (
-                    <ul>
-                        {reviews.map((review) => (
-                            <li key={review.id}>
-                                <p><strong>{review.score}/5</strong></p>
-                                <p>{review.text}</p>
-                            </li>
-                        ))}
-                    </ul>
-                )}
+            <div className="bg-cyan-200 rounded-lg p-10 drop-shadow-lg">
+            <h1 className="font-extrabold text-3xl">Reviews</h1>
+            <div className= "flex flex-row gap-10">
+            {reviews?.map((reviews) =>
+            <>
+                <div className="p-10 rounded-lg bg-indigo-200">
+                    <p className="align-middle"><strong>{reviews.score}/5</strong></p>
+                    <p>{reviews.text}</p>
+                </div>
+                
+            </>)
+            }
             </div>
+            </div>
+            
             <div>
                 <h3>{reviews.length} review(s)</h3>
             </div>
