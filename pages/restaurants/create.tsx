@@ -58,7 +58,7 @@ export default function Restaurants() {
     price: 2, // Representation of average cost ( 1 = $, 2 = $$, 3 = $$$, 4 = $$$$)
   } as RestaurantFormInfo);
 
-  function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
+  function handleChange(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) {
     const { name, value } = e.target;
     setRestaurantInfo((prev) => {
       return {
@@ -100,6 +100,44 @@ export default function Restaurants() {
             onChange={handleChange}
             value={restaurantInfo.address}
           />
+        </div>
+        <div>
+          <label>Restaurant Phone Number:</label>
+          <input
+            type="text"
+            name="phone"
+            onChange={handleChange}
+            value={restaurantInfo.phone}
+          />
+        </div>
+        <div>
+          <label>Restaurant Website:</label>
+          <input
+            type="text"
+            name="website"
+            onChange={handleChange}
+            value={restaurantInfo.website}
+          />
+        </div>
+        <div>
+          <label>Description:</label>
+          <textarea
+            name="description"
+            onChange={handleChange}
+            value={restaurantInfo.description}
+          />
+        </div>
+        <div>
+          <label>Price (How many $'s, from 1 to 4?):</label>
+          <input
+            type="number"
+            name="price"
+            onChange={handleChange}
+            value={restaurantInfo.price}
+          />
+        </div>
+        <div>
+          <h5>Restaurant Hours:</h5>
         </div>
       </div>
     </div>
