@@ -13,9 +13,10 @@ const auth = getAuth();
 interface UserProps {
     dbUser: User;
     reviews: Review[];
+    favoriteRestaurants: Restaurant[];
 }
 
-export default function UserView({dbUser, reviews}: UserProps) {
+export default function UserView({dbUser, reviews, favoriteRestaurants}: UserProps) {
 
     /* Load user authentication hook
      - user: Once authenticated user loads, user !== null.
@@ -47,11 +48,11 @@ export default function UserView({dbUser, reviews}: UserProps) {
                 <div className="bg-teal-100 rounded-lg p-10 drop-shadow-lg grow">
                     <h1 className="font-extrabold text-3xl">My Favorite Restaurants</h1>
                     <ul>
-                        {dbUser && dbUser.favoriteRestaurants && dbUser.favoriteRestaurants.length === 0 ? (
+                        {dbUser && dbUser.favoriteRestaurants && dbUser.favoriteRestaurants.length === 0 && favoriteRestaurants ? (
                             <li>You have not marked any favorite restaurants yet.</li>
                         ) : (
-                            dbUser.favoriteRestaurants.map((restaurant, index) => (
-                                <li key={index}>{restaurant}</li>
+                            favoriteRestaurants.map((restaurant, index) => (
+                                <li key={index}>{restaurant.name}</li>
                             ))
                         )}
                     </ul>
@@ -110,14 +111,13 @@ export async function getStaticProps(context: GetStaticPropsContext) {
     // Get router and ID from the URL.
     const { id } = context.params as UserParams
 
-    // Get restaurant data
-    
+    // Get user data
     const reviews = await DataService.getReviewsFromUser(Array.isArray(id) ? id[0] : id!);
-    let dbUser; 
-    try {
-        dbUser = await DataService.getUser(Array.isArray(id) ? id[0] : id!);
-    } catch (error) {
+    let dbUser = await DataService.getUser(Array.isArray(id) ? id[0] : id!);
 
-    }
-    return {props: {dbUser: dbUser, reviews: reviews} }
+    // Get favorite restaurants of user
+    const allRestaurants = await DataService.getAllRestaurants();
+    const favoriteRestaurants: Restaurant[] = allRestaurants.filter((e) => dbUser.favoriteRestaurants.includes(e.id))
+
+    return {props: {dbUser: dbUser, reviews: reviews, favoriteRestaurants: favoriteRestaurants} }
 }
