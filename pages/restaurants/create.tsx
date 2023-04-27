@@ -10,11 +10,12 @@ import RestaurantCard from "@/components/RestaurantCard";
 import * as DataService from "@/lib/DataService";
 import Restaurant, { RestaurantHours, RestaurantHoursSchedule } from "@/models/Restaurant";
 import { useState } from "react";
+import RestaurantHourInput from "@/components/RestaurantHourInput";
 
 const app = initFirebase();
 const auth = getAuth();
 
-interface RestaurantFormInfo {
+export interface RestaurantFormInfo {
   name: string; // Name of the restaurant
   category: string; // Category of the restaurant (Mediterranean, Indian, etc.)
   address: string; // String representation of restaurant's location
@@ -138,6 +139,41 @@ export default function Restaurants() {
         </div>
         <div>
           <h5>Restaurant Hours:</h5>
+          <RestaurantHourInput
+            weekday="monday"
+            handleChange={handleChange}
+            restaurantInfo={restaurantInfo}
+          />
+          <RestaurantHourInput
+            weekday="tuesday"
+            handleChange={handleChange}
+            restaurantInfo={restaurantInfo}
+          />
+          <RestaurantHourInput
+            weekday="wednesday"
+            handleChange={handleChange}
+            restaurantInfo={restaurantInfo}
+          />
+          <RestaurantHourInput
+            weekday="thursday"
+            handleChange={handleChange}
+            restaurantInfo={restaurantInfo}
+          />
+          <RestaurantHourInput
+            weekday="friday"
+            handleChange={handleChange}
+            restaurantInfo={restaurantInfo}
+          />
+          <RestaurantHourInput
+            weekday="saturday"
+            handleChange={handleChange}
+            restaurantInfo={restaurantInfo}
+          />
+          <RestaurantHourInput
+            weekday="sunday"
+            handleChange={handleChange}
+            restaurantInfo={restaurantInfo}
+          />
         </div>
       </div>
     </div>
