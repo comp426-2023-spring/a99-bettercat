@@ -12,15 +12,15 @@ export default function RestaurantHourInput(props: props) {
       <label className="capitalize">{props.weekday}</label>
       <label>Open:</label>
       <input
-        type="text"
-        name={props.weekday}
+        type="number"
+        name={props.weekday + " " + "open"}
         onChange={props.handleChange}
         value={props.restaurantInfo.hours[props.weekday].open}
       />
       <label>Close:</label>
       <input
-        type="text"
-        name={props.weekday}
+        type="number"
+        name={props.weekday + " " + "close"}
         onChange={props.handleChange}
         value={props.restaurantInfo.hours[props.weekday].close}
       />

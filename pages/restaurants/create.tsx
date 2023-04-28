@@ -61,12 +61,33 @@ export default function Restaurants() {
 
   function handleChange(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) {
     const { name, value } = e.target;
-    setRestaurantInfo((prev) => {
-      return {
-        ...prev,
-        [name]: value,
-      };
-    });
+    const result = isWeekday(name);
+    if (result) {
+      setRestaurantInfo((prev) => {
+        return {
+          ...prev,
+          hours: {
+            ...prev.hours,
+            [result[0]]: {
+              ...prev.hours[result[0]],
+              [result[1]]: Number(value),
+            },
+          },
+        };
+      });
+    } else {
+      setRestaurantInfo((prev) => {
+        return {
+          ...prev,
+          [name]: value,
+          //[name]: name === "price" ? Number(value) : value,
+        };
+      });
+    }
+  }
+
+  function handleSubmit() {
+    console.log(restaurantInfo);
   }
 
   // Render page
@@ -138,7 +159,7 @@ export default function Restaurants() {
           />
         </div>
         <div>
-          <h5>Restaurant Hours:</h5>
+          <h5>Restaurant Hours (Format hmm/hhmm): </h5>
           <RestaurantHourInput
             weekday="monday"
             handleChange={handleChange}
@@ -176,6 +197,7 @@ export default function Restaurants() {
           />
         </div>
       </div>
+      <button onClick={handleSubmit}>Submit</button>
     </div>
   );
 }
@@ -186,4 +208,16 @@ export default function Restaurants() {
 const authenticate = () => {
   const provider = new GoogleAuthProvider();
   signInWithPopup(auth, provider);
+};
+
+// Helper method that checks if parameter is a weekday
+const isWeekday = (str: string) => {
+  const weekDayArr = ["monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"];
+  const strSplit = str.split(" ") as ["monday" | "tuesday" | "wednesday" | "thursday" | "friday" | "saturday" | "sunday", "open" | "close"];
+  const day = strSplit[0];
+  if (weekDayArr.includes(day)) {
+    return strSplit;
+  } else {
+    return null;
+  }
 };
