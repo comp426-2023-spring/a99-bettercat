@@ -11,6 +11,8 @@ import * as DataService from "@/lib/DataService";
 import Restaurant, { RestaurantHours, RestaurantHoursSchedule } from "@/models/Restaurant";
 import { useState } from "react";
 import RestaurantHourInput from "@/components/RestaurantHourInput";
+import { createRestaurant } from "@/lib/DataService";
+import { useRouter } from "next/router";
 
 const app = initFirebase();
 const auth = getAuth();
@@ -85,9 +87,10 @@ export default function Restaurants() {
       });
     }
   }
-
-  function handleSubmit() {
-    console.log(restaurantInfo);
+  const router = useRouter();
+  async function handleSubmit() {
+    await createRestaurant(restaurantInfo as Restaurant);
+    router.push("/restaurants");
   }
 
   // Render page
@@ -197,7 +200,12 @@ export default function Restaurants() {
           />
         </div>
       </div>
-      <button onClick={handleSubmit}>Submit</button>
+      <button
+        className="border border-black"
+        onClick={handleSubmit}
+      >
+        Submit
+      </button>
     </div>
   );
 }
