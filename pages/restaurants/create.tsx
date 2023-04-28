@@ -89,6 +89,8 @@ export default function Restaurants() {
   }
   const router = useRouter();
   async function handleSubmit() {
+    let data = restaurantInfo;
+    restaurantInfo.price = Number(restaurantInfo.price);
     await createRestaurant(restaurantInfo as Restaurant);
     router.push("/restaurants");
   }
