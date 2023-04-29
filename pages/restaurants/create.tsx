@@ -105,7 +105,7 @@ export default function Restaurants() {
           <div className="flex flex-col w-80 sm:w-96 md:w-[500px] lg:w-[750px]">
             <label className="block">Restaurant Name:</label>
             <input
-              className="border border-black rounded-xl px-1"
+              className="border border-black rounded-xl px-2"
               type="text"
               name="name"
               onChange={handleChange}
@@ -115,7 +115,7 @@ export default function Restaurants() {
           <div className="flex flex-col w-80 sm:w-96 md:w-[500px] lg:w-[750px] ">
             <label className="block">Category:</label>
             <input
-              className="border border-black rounded-xl px-1"
+              className="border border-black rounded-xl px-2"
               type="text"
               name="category"
               onChange={handleChange}
@@ -125,7 +125,7 @@ export default function Restaurants() {
           <div className="flex flex-col w-80 sm:w-96 md:w-[500px] lg:w-[750px] ">
             <label className="block">Address:</label>
             <input
-              className="border border-black rounded-xl px-1"
+              className="border border-black rounded-xl px-2"
               type="text"
               name="address"
               onChange={handleChange}
@@ -135,7 +135,7 @@ export default function Restaurants() {
           <div className="flex flex-col w-80 sm:w-96 md:w-[500px] lg:w-[750px] ">
             <label className="block">Phone Number:</label>
             <input
-              className="border border-black rounded-xl px-1"
+              className="border border-black rounded-xl px-2"
               type="text"
               name="phone"
               onChange={handleChange}
@@ -145,7 +145,7 @@ export default function Restaurants() {
           <div className="flex flex-col w-80 sm:w-96 md:w-[500px] lg:w-[750px] ">
             <label className="block">Website:</label>
             <input
-              className="border border-black rounded-xl px-1"
+              className="border border-black rounded-xl px-2"
               type="text"
               name="website"
               onChange={handleChange}
@@ -155,7 +155,7 @@ export default function Restaurants() {
           <div className="flex flex-col w-80 sm:w-96 md:w-[500px] lg:w-[750px] ">
             <label className="block">Description:</label>
             <textarea
-              className="border border-black rounded-xl px-1"
+              className="border border-black rounded-xl px-2"
               name="description"
               onChange={handleChange}
               value={restaurantInfo.description}
@@ -164,7 +164,7 @@ export default function Restaurants() {
           <div className="flex flex-col w-80 sm:w-96 md:w-[500px] lg:w-[750px] ">
             <label className="block">Price (How many $'s, from 1 to 4?):</label>
             <input
-              className="border border-black rounded-xl px-1"
+              className="border border-black rounded-xl px-2"
               type="number"
               name="price"
               onChange={handleChange}
@@ -209,13 +209,13 @@ export default function Restaurants() {
               restaurantInfo={restaurantInfo}
             />
           </div>
+          <button
+            className="mt-4 border border-black rounded-2xl px-24 py-3 text-lg font-bold bg-white hover:bg-slate-300"
+            onClick={handleSubmit}
+          >
+            Submit
+          </button>
         </div>
-        <button
-          className="border border-black"
-          onClick={handleSubmit}
-        >
-          Submit
-        </button>
       </div>
     </div>
   );
