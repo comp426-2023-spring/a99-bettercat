@@ -97,117 +97,126 @@ export default function Restaurants() {
 
   // Render page
   return (
-    <div className="flex flex-col bg-slate-300 min-h-screen p-10 space-y-5">
-      <h1 className="mb-4 text-center text-4xl font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-6xl dark:text-black">Add Restaurant</h1>
+    <div className="flex flex-col bg-slate-300 sm:p-8 space-y-5">
+      <div className="p-2">
+        <h1 className="mb-2 text-center text-4xl font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-6xl dark:text-black">Add Restaurant</h1>
 
-      <div>
-        <div>
-          <label>Restaurant Name:</label>
-          <input
-            type="text"
-            name="name"
-            onChange={handleChange}
-            value={restaurantInfo.name}
-          />
+        <div className="border border-black flex flex-col items-center gap-2 bg-white rounded-3xl p-4 ">
+          <div className="flex flex-col w-80 sm:w-96 md:w-[500px] lg:w-[750px]">
+            <label className="block">Restaurant Name:</label>
+            <input
+              className="border border-black rounded-xl px-1"
+              type="text"
+              name="name"
+              onChange={handleChange}
+              value={restaurantInfo.name}
+            />
+          </div>
+          <div className="flex flex-col w-80 sm:w-96 md:w-[500px] lg:w-[750px] ">
+            <label className="block">Category:</label>
+            <input
+              className="border border-black rounded-xl px-1"
+              type="text"
+              name="category"
+              onChange={handleChange}
+              value={restaurantInfo.category}
+            />
+          </div>
+          <div className="flex flex-col w-80 sm:w-96 md:w-[500px] lg:w-[750px] ">
+            <label className="block">Address:</label>
+            <input
+              className="border border-black rounded-xl px-1"
+              type="text"
+              name="address"
+              onChange={handleChange}
+              value={restaurantInfo.address}
+            />
+          </div>
+          <div className="flex flex-col w-80 sm:w-96 md:w-[500px] lg:w-[750px] ">
+            <label className="block">Phone Number:</label>
+            <input
+              className="border border-black rounded-xl px-1"
+              type="text"
+              name="phone"
+              onChange={handleChange}
+              value={restaurantInfo.phone}
+            />
+          </div>
+          <div className="flex flex-col w-80 sm:w-96 md:w-[500px] lg:w-[750px] ">
+            <label className="block">Website:</label>
+            <input
+              className="border border-black rounded-xl px-1"
+              type="text"
+              name="website"
+              onChange={handleChange}
+              value={restaurantInfo.website}
+            />
+          </div>
+          <div className="flex flex-col w-80 sm:w-96 md:w-[500px] lg:w-[750px] ">
+            <label className="block">Description:</label>
+            <textarea
+              className="border border-black rounded-xl px-1"
+              name="description"
+              onChange={handleChange}
+              value={restaurantInfo.description}
+            />
+          </div>
+          <div className="flex flex-col w-80 sm:w-96 md:w-[500px] lg:w-[750px] ">
+            <label className="block">Price (How many $'s, from 1 to 4?):</label>
+            <input
+              className="border border-black rounded-xl px-1"
+              type="number"
+              name="price"
+              onChange={handleChange}
+              value={restaurantInfo.price}
+            />
+          </div>
+          <div className="w-80 sm:w-96 md:w-[500px] lg:w-[750px] flex flex-col gap-1">
+            <h5>Restaurant Hours (Format hmm/hhmm): </h5>
+            <RestaurantHourInput
+              weekday="monday"
+              handleChange={handleChange}
+              restaurantInfo={restaurantInfo}
+            />
+            <RestaurantHourInput
+              weekday="tuesday"
+              handleChange={handleChange}
+              restaurantInfo={restaurantInfo}
+            />
+            <RestaurantHourInput
+              weekday="wednesday"
+              handleChange={handleChange}
+              restaurantInfo={restaurantInfo}
+            />
+            <RestaurantHourInput
+              weekday="thursday"
+              handleChange={handleChange}
+              restaurantInfo={restaurantInfo}
+            />
+            <RestaurantHourInput
+              weekday="friday"
+              handleChange={handleChange}
+              restaurantInfo={restaurantInfo}
+            />
+            <RestaurantHourInput
+              weekday="saturday"
+              handleChange={handleChange}
+              restaurantInfo={restaurantInfo}
+            />
+            <RestaurantHourInput
+              weekday="sunday"
+              handleChange={handleChange}
+              restaurantInfo={restaurantInfo}
+            />
+          </div>
         </div>
-        <div>
-          <label>Restaurant Category:</label>
-          <input
-            type="text"
-            name="category"
-            onChange={handleChange}
-            value={restaurantInfo.category}
-          />
-        </div>
-        <div>
-          <label>Restaurant Address:</label>
-          <input
-            type="text"
-            name="address"
-            onChange={handleChange}
-            value={restaurantInfo.address}
-          />
-        </div>
-        <div>
-          <label>Restaurant Phone Number:</label>
-          <input
-            type="text"
-            name="phone"
-            onChange={handleChange}
-            value={restaurantInfo.phone}
-          />
-        </div>
-        <div>
-          <label>Restaurant Website:</label>
-          <input
-            type="text"
-            name="website"
-            onChange={handleChange}
-            value={restaurantInfo.website}
-          />
-        </div>
-        <div>
-          <label>Description:</label>
-          <textarea
-            name="description"
-            onChange={handleChange}
-            value={restaurantInfo.description}
-          />
-        </div>
-        <div>
-          <label>Price (How many $'s, from 1 to 4?):</label>
-          <input
-            type="number"
-            name="price"
-            onChange={handleChange}
-            value={restaurantInfo.price}
-          />
-        </div>
-        <div>
-          <h5>Restaurant Hours (Format hmm/hhmm): </h5>
-          <RestaurantHourInput
-            weekday="monday"
-            handleChange={handleChange}
-            restaurantInfo={restaurantInfo}
-          />
-          <RestaurantHourInput
-            weekday="tuesday"
-            handleChange={handleChange}
-            restaurantInfo={restaurantInfo}
-          />
-          <RestaurantHourInput
-            weekday="wednesday"
-            handleChange={handleChange}
-            restaurantInfo={restaurantInfo}
-          />
-          <RestaurantHourInput
-            weekday="thursday"
-            handleChange={handleChange}
-            restaurantInfo={restaurantInfo}
-          />
-          <RestaurantHourInput
-            weekday="friday"
-            handleChange={handleChange}
-            restaurantInfo={restaurantInfo}
-          />
-          <RestaurantHourInput
-            weekday="saturday"
-            handleChange={handleChange}
-            restaurantInfo={restaurantInfo}
-          />
-          <RestaurantHourInput
-            weekday="sunday"
-            handleChange={handleChange}
-            restaurantInfo={restaurantInfo}
-          />
-        </div>
+        <button
+          className="border border-black"
+          onClick={handleSubmit}
+        >
+          Submit
+        </button>
       </div>
-      <button
-        className="border border-black"
-        onClick={handleSubmit}
-      >
-        Submit
-      </button>
     </div>
   );
 }
