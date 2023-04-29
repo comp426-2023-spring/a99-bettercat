@@ -28,9 +28,9 @@ export default function NavBar(){
                   />
                   </a>
                 <div className="flex flex-row ml-4 space-x-20">
-                  <a className="text-xl font-medium my-4" href="/restaurants">View All</a>
+                  <a className="text-xl text-blue-300 font-medium my-4" href="/restaurants">View All</a>
                   { user_id && (
-                    <div className="text-xl font-medium my-4 space-x-20">
+                    <div className="text-xl text-blue-300 font-medium my-4 space-x-20">
                       <a href={"/users/" + user_id} >My Profile</a>
                       <button onClick={() => auth.signOut()}>Sign out</button>
                     </div>
