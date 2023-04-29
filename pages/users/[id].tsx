@@ -59,7 +59,11 @@ export default function UserView({dbUser, reviews, favoriteRestaurants}: UserPro
                             <li>You have not marked any favorite restaurants yet.</li>
                         ) : (
                             favoriteRestaurants.map((restaurant, index) => (
-                                <li key={index}>{restaurant.name}</li>
+                                <li key={index}>
+                                    <a href={restaurant.website} target="_blank" rel="noopener noreferrer">
+                                        {restaurant.name}
+                                    </a>
+                                </li>
                             ))
                         )}
                         </center>
