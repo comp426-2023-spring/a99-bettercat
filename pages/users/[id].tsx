@@ -54,6 +54,7 @@ export default function UserView({dbUser, reviews, favoriteRestaurants}: UserPro
                         <h1 className="font-extrabold text-3xl">My Favorite Restaurants</h1>      
                     </center>
                     <ul>
+                        <center>
                         {dbUser && dbUser.favoriteRestaurants && dbUser.favoriteRestaurants.length === 0 && favoriteRestaurants ? (
                             <li>You have not marked any favorite restaurants yet.</li>
                         ) : (
@@ -61,6 +62,7 @@ export default function UserView({dbUser, reviews, favoriteRestaurants}: UserPro
                                 <li key={index}>{restaurant.name}</li>
                             ))
                         )}
+                        </center>
                     </ul>
                 </div>
             </div>
