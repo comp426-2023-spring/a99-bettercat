@@ -1,18 +1,42 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { useState } from 'react';
+import User from '@/models/User';
+import { initFirebase } from "@/firebase/clientApp";
+import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
+import unc from "public/unc.png"
 
+const auth = getAuth();
 
-export default function navBar(){
-    const [navbar, setNavbar] = useState(false);
+// interface navBarProps {
+//   user_id: String | null;
+// }
+// { user_id }:navBarProps
+export default function NavBar(){
+    var user_id = auth.currentUser?.uid
 
     return (
-        <nav className="flex filter drop-shadow-md bg-white px-4 py-4 h-20 items-center">
-          <div className="flex items-center justify-center filter drop-shadow-md h-20"> {/*logo container*/}
-                <a className="text-xl font-semibold" href="/">Chapel Hill Restaurants</a>
-                <div className="flex flex-col ml-4">
+        <nav className="flex filter drop-shadow-md bg-white px-4 py-4 h-30 items-center">
+          <div className="flex items-center justify-center"> {/*logo container*/}
+                <a className="text-xl font-semibold px-20" href="/">
+                  <Image
+                    src ={unc}
+                    height={150}
+                    width={150}
+                    alt = "Unc"
+                  
+                  />
+                  </a>
+                <div className="flex flex-row ml-4 space-x-20">
                   <a className="text-xl font-medium my-4" href="/restaurants">View All</a>
-                </div>
+                  { user_id && (
+                    <div className="text-xl font-medium my-4 space-x-20">
+                      <a href={"/users/" + user_id} >My Profile</a>
+                      <button onClick={() => auth.signOut()}>Sign out</button>
+                    </div>
+                    
+                  )}
+                </div>      
             </div>
         </nav>
       );
