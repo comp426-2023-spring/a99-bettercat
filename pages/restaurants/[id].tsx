@@ -18,7 +18,7 @@ const auth = getAuth();
 interface RestaurantProps {
     restaurant: Restaurant;
     reviews: Review[];
-    average_review: Number;
+    average_review: number;
 }
 
 
@@ -78,36 +78,36 @@ export default function RestaurantView({restaurant, reviews, average_review}: Re
                 <div>
                     <table>
                         <tr>
-                            <th>Day</th>
-                            <th>Times</th>
+                            <th className="border-separate p-1">Day</th>
+                            <th className="border-separate p-1">Times</th>
                         </tr>
                         <tr> 
                             <td>Sunday</td>
-                            <td>{restaurant.hours.sunday.open + " - " + restaurant.hours.sunday.close}</td>
+                            <td className="border-separate p-1">{restaurant.hours.sunday.open + " - " + restaurant.hours.sunday.close}</td>
                         </tr>
                         <tr>
                             <td>Monday</td>
-                            <td>{restaurant.hours.monday.open + " - " + restaurant.hours.monday.close}</td>
+                            <td className="border-separate p-1">{restaurant.hours.monday.open + " - " + restaurant.hours.monday.close}</td>
                         </tr>
                         <tr> 
                             <td>Tuesday</td>
-                            <td>{restaurant.hours.tuesday.open + " - " + restaurant.hours.tuesday.close}</td>
+                            <td className="border-separate p-1">{restaurant.hours.tuesday.open + " - " + restaurant.hours.tuesday.close}</td>
                         </tr>
                         <tr> 
                             <td>Wednesday</td>
-                            <td>{restaurant.hours.wednesday.open + " - " + restaurant.hours.wednesday.close}</td>
+                            <td className="border-separate p-1">{restaurant.hours.wednesday.open + " - " + restaurant.hours.wednesday.close}</td>
                         </tr>
                         <tr> 
                             <td>Thursday</td>
-                            <td>{restaurant.hours.thursday.open + " - " + restaurant.hours.thursday.close}</td>
+                            <td className="border-separate p-1">{restaurant.hours.thursday.open + " - " + restaurant.hours.thursday.close}</td>
                         </tr>
                         <tr> 
                             <td>Friday</td>
-                            <td>{restaurant.hours.friday.open + " - " + restaurant.hours.friday.close}</td>
+                            <td className="border-separate p-1">{restaurant.hours.friday.open + " - " + restaurant.hours.friday.close}</td>
                         </tr>
                         <tr> 
                             <td>Saturday</td>
-                            <td>{restaurant.hours.saturday.open + " - " + restaurant.hours.saturday.close}</td>
+                            <td className="border-separate p-1">{restaurant.hours.saturday.open + " - " + restaurant.hours.saturday.close}</td>
                         </tr>
                     </table>
                     <div className="align-middle">
@@ -127,7 +127,15 @@ export default function RestaurantView({restaurant, reviews, average_review}: Re
                             Price
                         </strong>
                             <p>
-                                {restaurant.price}
+                            {(() => {
+                                switch (restaurant.price) {
+                                case 1:   return "$";
+                                case 2:   return "$$";
+                                case 3:   return "$$$";
+                                case 4:   return "$$$$";
+                                default:  return "no price";
+                                }
+                            })()}
                             </p>
                         <strong>
                             Category
@@ -166,7 +174,7 @@ export default function RestaurantView({restaurant, reviews, average_review}: Re
         </div> 
         <div className="bg-white rounded-lg p-10 drop-shadow-lg">
             <h1 className="font-extrabold text-3xl">Reviews</h1>
-            <div className= "flex flex-row">
+            <div className= "flex flex-row gap-10">
             {reviews?.map((reviews) =>
             <>
                 <div className="p-10 rounded-lg bg-slate-400">
@@ -178,10 +186,10 @@ export default function RestaurantView({restaurant, reviews, average_review}: Re
             }
             </div>
          </div>
-         <div>
+         {/* <div>
             <h3>{reviews.length} review(s)</h3>
             <h3>{average_review.toString()+ "/5 stars"}</h3>
-        </div>
+        </div> */}
          
        </div>
    );
@@ -226,8 +234,9 @@ export async function getStaticProps(context: GetStaticPropsContext) {
     
     //Calculate Avg Review
     var average_review
-    for(let review of reviews)
-        average_review = (review.score / reviews.length) * reviews.length
+    for(let review of reviews!) {
+        average_review = (review.score / reviews!.length) * reviews!.length
+    }
 
 
     //Geocode Address to obtain latitude and longitude
