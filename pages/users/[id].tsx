@@ -34,7 +34,9 @@ export default function UserView({dbUser, reviews, favoriteRestaurants}: UserPro
             </div>
             <div className="flex flex-row pd- 10 space-x-5">
                 <div className="bg-green-100 rounded-lg p-10 drop-shadow-lg grow">
-                    <h1 className="font-extrabold text-3xl">My Favorite Categories</h1>
+                    <center>
+                        <h1 className="font-extrabold text-3xl">My Favorite Categories</h1>
+                    </center>
                     <ul>
                         {dbUser && dbUser.favoriteCategories && dbUser.favoriteCategories.length === 0 ? (
                             <li>You have not marked any favorite categories yet.</li>
@@ -46,7 +48,9 @@ export default function UserView({dbUser, reviews, favoriteRestaurants}: UserPro
                     </ul>
                 </div>
                 <div className="bg-teal-100 rounded-lg p-10 drop-shadow-lg grow">
-                    <h1 className="font-extrabold text-3xl">My Favorite Restaurants</h1>
+                    <center>
+                        <h1 className="font-extrabold text-3xl">My Favorite Restaurants</h1>      
+                    </center>
                     <ul>
                         {dbUser && dbUser.favoriteRestaurants && dbUser.favoriteRestaurants.length === 0 && favoriteRestaurants ? (
                             <li>You have not marked any favorite restaurants yet.</li>
