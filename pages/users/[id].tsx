@@ -14,9 +14,10 @@ interface UserProps {
     dbUser: User;
     reviews: Review[];
     favoriteRestaurants: Restaurant[];
+    reviewRestaurants: {[key: string] : string}; 
 }
 
-export default function UserView({dbUser, reviews, favoriteRestaurants}: UserProps) {
+export default function UserView({dbUser, reviews, favoriteRestaurants, reviewRestaurants}: UserProps) {
 
     /* Load user authentication hook
      - user: Once authenticated user loads, user !== null.
@@ -76,7 +77,7 @@ export default function UserView({dbUser, reviews, favoriteRestaurants}: UserPro
             {reviews?.map((reviews) =>
             <>
                 <div className="p-10 rounded-lg bg-indigo-200">
-                    <p className="align-middle"><strong>{reviews.score}/5</strong></p>
+                    <p className="align-middle"><strong>{reviews.score}/5</strong> - {reviewRestaurants[reviews.id]}</p>
                     <p>{reviews.text}</p>
                 </div>
                 
@@ -131,5 +132,13 @@ export async function getStaticProps(context: GetStaticPropsContext) {
     const allRestaurants = await DataService.getAllRestaurants();
     const favoriteRestaurants: Restaurant[] = allRestaurants.filter((e) => dbUser.favoriteRestaurants.includes(e.id))
 
-    return {props: {dbUser: dbUser, reviews: reviews, favoriteRestaurants: favoriteRestaurants} }
+    // Get restaurant data for each review
+    const reviewRestaurantPromises = reviews?.map(async (review) => {
+        const restaurant = await DataService.getRestaurant(review?.restaurantId);
+        return { [review?.id]: restaurant?.name };
+    });
+    const reviewRestaurants = Object.assign({}, ...(await Promise.all(reviewRestaurantPromises ?? [])))
+
+
+    return {props: {dbUser: dbUser, reviews: reviews, favoriteRestaurants: favoriteRestaurants, reviewRestaurants: reviewRestaurants,} }
 }
