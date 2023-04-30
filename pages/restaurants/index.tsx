@@ -25,7 +25,13 @@ export default function Restaurants({ restaurants }: RestaurantsProps) {
   // Render page
   return (
     <div className="flex flex-col bg-slate-300 min-h-screen p-10 space-y-5">
-      <h1 className="mb-4 text-center text-4xl font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-6xl dark:text-black">Chapel Hill Restaurants</h1>
+      <h1 className=" text-center text-4xl font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-6xl dark:text-black">Chapel Hill Restaurants</h1>
+      <Link
+        className="border border-black w-fit self-end rounded-2xl py-1 px-4 bg-white hover:bg-slate-300"
+        href={"/restaurants/create"}
+      >
+        Add Your Favorite Restaurant?
+      </Link>
       {restaurants.map((restaurant) => (
         <RestaurantCard
           restaurant={restaurant}
@@ -39,6 +45,7 @@ export default function Restaurants({ restaurants }: RestaurantsProps) {
 import RestaurantCard from "@/components/RestaurantCard";
 import * as DataService from "@/lib/DataService";
 import Restaurant from "@/models/Restaurant";
+import Link from "next/link";
 
 /**
  * Loads data on the server side as the page loads.
