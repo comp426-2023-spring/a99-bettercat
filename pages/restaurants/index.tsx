@@ -36,7 +36,7 @@ export default function Restaurants({ restaurants }: RestaurantsProps) {
     if (user) {
       getFavoriteCategories(user.uid);
     }
-  }, []);
+  }, [user]);
 
   // Render page
   return (
