@@ -21,23 +21,60 @@ export default function Restaurants({ restaurants }: RestaurantsProps) {
    > If all the above == null, then it means that no user is currently signed in.
    */
   const [user, loading, error] = useAuthState(auth);
+  const [favoriteCategories, setFavoriteCategories] = useState<string[] | null>(null);
+  const [showFavoriteOnly, setShowFavoriteOnly] = useState(false);
+
+  function toggleShowFavorite() {
+    setShowFavoriteOnly((prev) => !prev);
+  }
+
+  useEffect(() => {
+    async function getFavoriteCategories(userId: string) {
+      const dbUser = await getUser(userId);
+      setFavoriteCategories(dbUser ? dbUser.favoriteCategories : null);
+    }
+    if (user) {
+      getFavoriteCategories(user.uid);
+    }
+  });
 
   // Render page
   return (
     <div className="flex flex-col bg-slate-300 min-h-screen p-10 space-y-5">
-      <h1 className=" text-center text-4xl font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-6xl dark:text-black">Chapel Hill Restaurants</h1>
-      <Link
-        className="border border-black w-fit self-end rounded-2xl py-1 px-4 bg-white hover:bg-slate-300"
-        href={"/restaurants/create"}
-      >
-        Add Your Favorite Restaurant?
-      </Link>
-      {restaurants.map((restaurant) => (
-        <RestaurantCard
-          restaurant={restaurant}
-          key={restaurant.id}
-        />
-      ))}
+      <h1 className="text-center text-4xl font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-6xl dark:text-black">Chapel Hill Restaurants</h1>
+      <div className="flex justify-between">
+        <button
+          className="border border-black w-fit rounded-2xl py-1 px-4 bg-white hover:bg-slate-300"
+          onClick={toggleShowFavorite}
+        >
+          Favorite Categories
+        </button>
+        <Link
+          className="border border-black w-fit rounded-2xl py-1 px-4 bg-white hover:bg-slate-300"
+          href={"/restaurants/create"}
+        >
+          Add Restaurant?
+        </Link>
+      </div>
+      {showFavoriteOnly
+        ? restaurants.map((restaurant) => {
+            if (favoriteCategories?.includes(restaurant.category)) {
+              return (
+                <RestaurantCard
+                  restaurant={restaurant}
+                  key={restaurant.id}
+                />
+              );
+            }
+          })
+        : restaurants.map((restaurant) => {
+            return (
+              <RestaurantCard
+                restaurant={restaurant}
+                key={restaurant.id}
+              />
+            );
+          })}
     </div>
   );
 }
@@ -46,6 +83,8 @@ import RestaurantCard from "@/components/RestaurantCard";
 import * as DataService from "@/lib/DataService";
 import Restaurant from "@/models/Restaurant";
 import Link from "next/link";
+import { getUser } from "@/lib/DataService";
+import { useEffect, useState } from "react";
 
 /**
  * Loads data on the server side as the page loads.
