@@ -72,13 +72,19 @@ export default function UserView({dbUser, reviews, favoriteRestaurants, reviewRe
                 </div>
             </div>
             <div className="bg-cyan-200 rounded-lg p-10 drop-shadow-lg">
-            <h1 className="font-extrabold text-3xl">Reviews</h1>
+            <center>
+                <h1 className="font-extrabold text-3xl">Reviews</h1>
+            </center>
             <div className= "flex flex-row gap-10">
             {reviews?.map((reviews) =>
             <>
                 <div className="p-10 rounded-lg bg-indigo-200">
-                    <p className="align-middle"><strong>{reviews.score}/5</strong> - {reviewRestaurants[reviews.id]}</p>
-                    <p>{reviews.text}</p>
+                    <center>
+                        <p className="align-middle"><strong>{reviews.score}/5</strong> - <strong>{reviewRestaurants[reviews.id]}</strong></p>
+                    </center>
+                    <center>
+                        <p>{reviews.text}</p>
+                    </center>
                 </div>
                 
             </>)
