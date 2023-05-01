@@ -3,7 +3,7 @@ import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 import { getFirestore, collection } from "firebase/firestore";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useCollection } from "react-firebase-hooks/firestore";
-
+import NavBar from "./navbar";
 import Head from "next/head";
 
 const app = initFirebase();
@@ -38,6 +38,7 @@ export default function Home({ restaurants }: HomeProps) {
   if (user) {
     return (
       <div>
+        <NavBar></NavBar>
         <p>Signed In User: {user.email}</p>
         <button onClick={() => auth.signOut()}>Sign out</button>
         <h1>Restaurants</h1>
@@ -50,6 +51,7 @@ export default function Home({ restaurants }: HomeProps) {
   // Render a page when a user is not signed in
   return (
     <div className="App">
+      <NavBar></NavBar>
       <button onClick={() => authenticate()}>Sign In</button>
     </div>
   );
