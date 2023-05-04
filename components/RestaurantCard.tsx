@@ -8,6 +8,8 @@ interface ResCardProps {
 export default function RestaurantCard({ restaurant }: ResCardProps) {
   const weekDay = getWeekday();
   const priceSymbol = "$".repeat(restaurant.price);
+  const openStr = restaurant.hours[weekDay].open.toString();
+  const closeStr = restaurant.hours[weekDay].close.toString();
   return (
     <div className="bg-white rounded-2xl border border-black p-6 flex flex-col gap-4">
       <Link
@@ -24,8 +26,7 @@ export default function RestaurantCard({ restaurant }: ResCardProps) {
         </div>
         {/* Display the hours of current weekday */}
         <p>
-          Hours {weekDay.charAt(0).toLocaleUpperCase() + weekDay.slice(1)}: {Math.floor(restaurant.hours[weekDay].open / 100).toString()}:{restaurant.hours[weekDay].open.toString().slice(2)} - {Math.floor(restaurant.hours[weekDay].close / 100).toString()}:
-          {restaurant.hours[weekDay].close.toString().slice(2)}
+          Hours {weekDay.charAt(0).toLocaleUpperCase() + weekDay.slice(1)}: {openStr.substring(0, openStr.length - 2)}:{openStr.substring(openStr.length - 2)} - {closeStr.substring(0, closeStr.length - 2)}:{closeStr.substring(closeStr.length - 2)}
         </p>
       </div>
     </div>
