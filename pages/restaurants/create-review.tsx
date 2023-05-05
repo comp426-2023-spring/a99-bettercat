@@ -1,4 +1,5 @@
 import { initFirebase } from "@/firebase/clientApp";
+import Restaurant from "@/models/Restaurant";
 import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 import { getFirestore, collection } from "firebase/firestore";
 import { useState } from "react";
@@ -15,7 +16,11 @@ export interface ReviewFormInfo {
     tags: [string]; // tags for review
     text: string; // Phone number used by the restaurant
 }
-export default function CreateReview() {
+
+interface CreateReviewProps{
+    restaurant: Restaurant;
+}
+export default function CreateReview({ restaurant }: CreateReviewProps) {
     /* Load user authentication hook
    - user: Once authenticated user loads, user !== null.
    - loading: If authenticated state is loading, loading !== null.
@@ -26,7 +31,7 @@ export default function CreateReview() {
 
   const [reviewInfo, setReviewInfo] = useState({
     userId: auth.currentUser?.uid,// id of review author
-    restaurantId: "", // id of restaurant 
+    restaurantId: restaurant.id, // id of restaurant 
     score: 0, // score (out of five) user leaves for restaurant
     tags: [""], // tags for review
     text: "", 
@@ -57,6 +62,7 @@ export default function CreateReview() {
     let data = reviewInfo;
     console.log(data.score)
     console.log(data.text)
+    //insert backend method
   }
 
   return(
