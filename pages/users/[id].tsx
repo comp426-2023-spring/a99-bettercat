@@ -42,7 +42,7 @@ export default function UserView({dbUser, reviews, favoriteRestaurants, reviewRe
                     <ul>
                         
                         {
-                        ["Mediterranean", "Burger", "Asian", "Mexican", "Indian", "Breakfast", "Dessert", "Brewpub", "Coffee Shop"].map((e) => (
+                        ["Mediterranean", "Burger", "Asian", "Mexican", "Indian", "Breakfast", "Dessert", "Brewpub", "Coffee Shop", "Healthy"].map((e) => (
                             <>
                             <input
                                 className="border border-black rounded-xl px-2"
