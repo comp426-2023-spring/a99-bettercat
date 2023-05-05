@@ -25,7 +25,7 @@ Your project should take the form of a Node package, with all of the attendant i
 	6. Database can be of any type you choose. 🟢
       > We are using the Firebase Firestore database for our project.
 2. Front-end specifications
-	1. Give users the ability to register an account, update their information, see their information somewhere, and delete their account. 🔴
+	1. Give users the ability to register an account, update their information, see their information somewhere, and delete their account. 🟢
     > Users are able to register an account on the home page, as well as view their details and update their preferences on the user page.
 	2. Interactions with the front end should be logged in a database. 🟢
     > Logs are added to a logging collection in Firebase Firestore. Timestamps and user IDs are collected every time a user starts a new session.
