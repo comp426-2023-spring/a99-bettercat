@@ -23,6 +23,12 @@ export default function UserView({dbUser, reviews, favoriteRestaurants, reviewRe
      > If all the above == null, then it means that no user is currently signed in.
      */
     const [user, loading, error] = useAuthState(auth);
+    const [dbUserState, setDbUserState] = useState(dbUser);
+
+    const toggleFavoriteCategory = async (category: string) => {
+        await DataService.toggleFavoriteCategory(user!.uid, category);
+        setDbUserState(await DataService.getUser(user!.uid))
+    }
 
     return (
 
@@ -39,15 +45,23 @@ export default function UserView({dbUser, reviews, favoriteRestaurants, reviewRe
                         <h1 className="font-extrabold text-3xl">My Favorite Categories</h1>
                     </center>
                     <ul>
-                        <center>
-                        {dbUser && dbUser.favoriteCategories && dbUser.favoriteCategories.length === 0 ? (
-                            <li>You have not marked any favorite categories yet.</li>
-                        ) : (
-                            dbUser.favoriteCategories.map((category, index) => (
-                                <li key={index}>{category}</li>
-                            ))
-                        )}
-                        </center>
+                        
+                        {
+                        ["Mediterranean", "Burger", "Asian", "Mexican", "Indian", "Breakfast", "Dessert", "Brewpub", "Coffee Shop"].map((e) => (
+                            <>
+                            <input
+                                className="border border-black rounded-xl px-2"
+                                type="checkbox"
+                                name={e}
+                                onChange={() => toggleFavoriteCategory(e)}
+                                value={e}
+                                checked={dbUserState.favoriteCategories.includes(e)}
+                            />
+                            <label className=" pl-2" htmlFor={e}>{e}</label>
+                            <br/>
+                            </>
+                        ))
+                        }
                     </ul>
                 </div>
                 <div className="bg-teal-100 rounded-lg p-10 drop-shadow-lg grow">
@@ -56,7 +70,7 @@ export default function UserView({dbUser, reviews, favoriteRestaurants, reviewRe
                     </center>
                     <ul>
                         <center>
-                        {dbUser && dbUser.favoriteRestaurants && dbUser.favoriteRestaurants.length === 0 && favoriteRestaurants ? (
+                        {dbUserState && dbUserState.favoriteRestaurants && dbUserState.favoriteRestaurants.length === 0 && favoriteRestaurants ? (
                             <li>You have not marked any favorite restaurants yet.</li>
                         ) : (
                             favoriteRestaurants.map((restaurant, index) => (
@@ -118,6 +132,8 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import Review from "@/models/Review";
 import User from "@/models/User";
 import NavBar from "../navbar";
+import { useState } from "react";
+import { Data } from "@react-google-maps/api";
 
 interface UserParams extends ParsedUrlQuery {
     slug: string

@@ -180,3 +180,30 @@ export const toggleFavoriteRestaurant = async (uid: string, restaurantId: string
   }
 
 }
+
+/**
+ * Toggles whether a category is favorited or not.
+ * @param uid the ID of the user to add the category to
+ * @param category category
+ */
+export const toggleFavoriteCategory = async (uid: string, category: string) => {
+  const userCollection = collection(firestore, "users").withConverter(converter<User>());
+  const docReference = doc(userCollection, uid);
+
+  const user = await getUser(uid);
+  const oldFavoriteCategories = user.favoriteCategories;
+
+  if(oldFavoriteCategories.includes(category)) {
+    // Remove favorite
+    const newFavoriteCategories = oldFavoriteCategories.filter((e) => e !== category);
+    await updateDoc(docReference, {favoriteCategories: newFavoriteCategories});
+  }
+  else {
+    // Add favorite
+    const newFavoriteCategories = oldFavoriteCategories;
+    newFavoriteCategories.push(category);
+    await updateDoc(docReference, {favoriteCategories: newFavoriteCategories});
+
+  }
+
+}
