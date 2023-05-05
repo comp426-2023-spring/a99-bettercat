@@ -86,6 +86,7 @@ import Restaurant from "@/models/Restaurant";
  * @returns properties for the `index` page with the data loaded.
  */
 export async function getStaticProps() {
+
   const restaurants = await DataService.getAllRestaurants();
   return { props: { restaurants: restaurants } };
 }

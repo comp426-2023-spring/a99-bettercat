@@ -99,6 +99,10 @@ export const getUser = async (id: string) => {
     const querySnapshot = await getDoc(docReference);
     const user: User | undefined = querySnapshot.data()
 
+    if (!user) {
+        throw new Error("User not found");
+    }
+
     return user;
 }
 

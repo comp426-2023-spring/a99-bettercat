@@ -9,7 +9,7 @@ export default interface User {
 
   id: string; // User Firestore document ID
   favoriteCategories: string[]; // User's favorite restaurant categories
-  favoriteRestaurants: number[]; // User's favorite restaurants (stored by restaurant ID)
+  favoriteRestaurants: string[]; // User's favorite restaurants (stored by restaurant ID)
 
   // TODO: Determine more user fields here
 }

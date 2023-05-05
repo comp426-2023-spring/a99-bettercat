@@ -16,6 +16,7 @@ export default async function handle(req: NextApiRequest, res: NextApiResponse) 
 
             // Attempt to find reviews for ID        
             const reviews = await DataService.getReviewsFromUser(Array.isArray(userId) ? userId[0] : userId!)
+            console.log(reviews);
 
             // Check if reviews found
             if (reviews !== null) {
