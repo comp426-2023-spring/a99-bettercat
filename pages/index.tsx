@@ -3,7 +3,11 @@ import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 import { getFirestore, collection } from "firebase/firestore";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useCollection } from "react-firebase-hooks/firestore";
+import { useEffect } from "react";
+import { useRouter } from "next/router";
 
+
+import NavBar from "./navbar";
 import Head from "next/head";
 
 const app = initFirebase();
@@ -21,8 +25,14 @@ export default function Home({ restaurants }: HomeProps) {
    > If all the above == null, then it means that no user is currently signed in.
    */
   const [user, loading, error] = useAuthState(auth);
+  const router = useRouter();
 
-  // Render a page when there is an error loading the authentication state
+  useEffect(() => {
+    if (user) {
+      router.push("/restaurants");
+    }
+  }, [user]);
+
   if (error) {
     return (
       <div>
@@ -38,6 +48,7 @@ export default function Home({ restaurants }: HomeProps) {
   if (user) {
     return (
       <div>
+        <NavBar></NavBar>
         <p>Signed In User: {user.email}</p>
         <button onClick={() => auth.signOut()}>Sign out</button>
         <h1>Restaurants</h1>
@@ -49,8 +60,20 @@ export default function Home({ restaurants }: HomeProps) {
   }
   // Render a page when a user is not signed in
   return (
+    
     <div className="App">
-      <button onClick={() => authenticate()}>Sign In</button>
+      <NavBar></NavBar>
+      <div className="flex flex-col items-center justify-center bg-slate-300 min-h-screen">
+      <h1 className="text-4xl font-bold mb-5">Welcome to Chapel Hill Eats</h1>
+      <p className="text-lg mb-10">Sign in to get started:</p>
+      <div>
+        <button
+          className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded"
+          onClick={() => authenticate()}
+        >
+          Sign In
+        </button>
+      </div>
     </div>
   );
 }
@@ -77,8 +100,6 @@ const authenticate = async () => {
   // Add the user to Firestore if it does not currently exist (i.e., new user)
   const getUserResult = await DataService.getUser(uid)
 
-  console.log(getUserResult);
-
   if(getUserResult == undefined) {
     await DataService.createUser({
       id: uid,
@@ -86,4 +107,7 @@ const authenticate = async () => {
       favoriteRestaurants: []
     }, uid)
   }
+
+  // Log user authentication
+  await DataService.logUserAuthentication(uid, "auth");
 }

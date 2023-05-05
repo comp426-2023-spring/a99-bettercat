@@ -1,150 +1,105 @@
-# a99 Final Project Template Repo
+# UNC Restaurants Tracker
 
-**DUE:** 2023-05-05T22:00 (End of Exam Period)
-
-General final project issues and questions: https://github.com/comp426-2022-spring/a99/issues
-
-**NOTE: You are all each individually responsible for submitting a final self- and team-assessment in addition to your team's submission of the final project. This will be emailed to you in the last week of the semester.**
+> This project is being developed by *[Ajay Gandecha](https://github.com/ajaygandecha)*, *[Will Astilla](https://github.com/wastilla)*, *[Angelina Su](https://github.com/angelinasu57)*, *[David Zhang](https://github.com/zhangwy324)*, *[Andrew Zadrozny](https://github.com/andrewzadrozny)*, *[Aayush Mehra](https://github.com/aayush110)*, and *[Muktha Santhoshkumar](https://github.com/muktha-s)*  for the *final project (a99)* of **[COMP 426: Modern Web Programming](https://comp423-2023-spring.github.io)** at UNC-Chapel Hill taught by *[Professor John D. Martin III](https://github.com/jdmar3)*.
 
 ## Overview
 
-Your team will be responsible for scoping, planning, and designing a PROTOTYPE web application or system.
+< Demo Video Here >
 
-The app should be fully documented, including setup instructions, full API documentation, and user instructions, as well as your planning workflow (notes, GitHub Project boards, discussions archives, etc.).
+The **UNC Restaurants Tracker** is an interactive web application that allows users to *view*, *rate*, and *favorite* restaurants all around UNC-Chapel Hill! Users can sign up with their existing Google account. Once signed in, users are able to see view a list of restaurants in Chapel Hill, see important information about the restaurant including opening hours, categories, their location on a map, and pricing, as well as rate restaurants. Users may also save their preferences of favorite restaurants and favorite genres.
 
-Your team will create a <= 3-minute video describing your app to present to the class about your app.
-This can be a very basic walkthrough, or a description/presentation of features/use cases, or something else.
-Be creative.
-Think of it as an opportunity to hone your ability to pitch an idea that you have in prototype (because that is what it is).
+## Link to Website
 
-## Deliverables
+Our website is hosted live using Vercel - link here.
 
-A GitHub repository in the class organization containing your code and documentation and a prototype release package.
-Your project should take the form of a Node package, with all of the attendant items associated with that.
-The following three script commands should work in your package:
+## Tech Stack
 
-1. `npm install` - Install dependencies for your package.
-2. `npm test` - Start app, check that everything can run, and then stop app.
-3. `npm run` - Command to bring up all parts of the app/system's server scripts.
+Part of our goal for this project was to employ reliable and durable full-stack development tools and technologies. We wanted the project to be typesafe, streamlined, and fully integrated together. With this goal in mind, we employed the following technologies into our project:
 
-Your team is responsible for incorporating the following specifications and deliverables into your final project:
+![TypeScript](https://img.shields.io/badge/-TypeScript-05122A?style=flat&logo=typescript)
 
-1. Back-end specifications
-	1. API built on whatever framework you choose. You can build an API that interacts with other APIs as well in order to integrate them.
-	2. API root endpoint at `http://HOST/app/`.
-	4. Create (if nonexistent) and interact with a database of users (optional) and interactions (this can be logs, even). If users do not need to login to use your app, then do not worry about a user DB. These can be separate databases for different microservices or separate tables in one database. It is up to your team's decisions.
-	5. Database can be of any type you choose.
-2. Front-end specifications
-	1. Give users the ability to register an account, update their information, see their information somewhere, and delete their account.
-	2. Interactions with the front end should be logged in a database. 
-3. Database specifications
-	1. User database (if relevant) - registration details (username, email address, etc.)
-	2. Interaction database - details of user interactions (login history, access logs, etc.)
-4. Documentation
-	1. License documenation - Choose a license and include it in the repository just like we have been.
-	1. README.md file with basic descriptiong, installation requirements/instructions, dependency list, run instructions.
-	3. `/docs/` directory containing full documentation of every available API endpoint that you create for your app. This directory shoud also house an archive of your planning documentation. 
-	2. Code comments (preferably referring to the documentation)
-	3. User instructions in the interface if needed.
-5. Demo video
-	1. In order to get credit for this, add a row to the table in the README here and make a pull request: https://github.com/comp426-2022-fall/a99-demos/edit/main/README.md
-7. Self/group evaluation (Individual group members: this is part of the final exam for the course.)
+TypeScript is a superset of JavaScript that adds static typing to traditional JavaScript. While TypeScript seemed more tedious to work with at first, using it instead of JavaScript really helped to reduce errors in the long run due to more strict typing rules. Therefore, our group opted to use TypeScript for this project. In addition, TypeScript is the preferred language for the frameworks below. 
 
-## Logistics
+![NextJS](https://img.shields.io/badge/-Next.js-05122A?style=flat&logo=next.js)
 
-You have been assigned to work on a small team for the final project assignment. 
+Next.js is a frontend framework built on the React library that enables rich features and optimizations to the application, such as hybrid static & server rendering, which greatly increases speeds without sacrificing user experience. Next.js has become an [industry standard](https://nextjs.org/showcase), with companies such as Twitch, Hulu, Target, Notion, Nike, and more utiziling it. 
 
-Your team will be responsible for planning the project, determining roles, and then employing a collaborative workflow to build out your project.
-Different people will be interested in different parts of the project.
-Not everyone has to do the same things, nor should they.
+![React](https://img.shields.io/badge/-React.js-05122A?style=flat&logo=react)
 
-Teams have been created for you and you should have received an invitation to the team and the class GitHub organization.
+React is an extremely powerful framework for creating fully functional user interfaces and UI components. React is automatically built into Next.js. React is the preferred method of user interface design in previous iterations of COMP 426 and is extremely useful and easy to use.
 
-### Using collaboration features on GitHub
+![Tailwind CSS](https://img.shields.io/badge/-Tailwind_CSS-05122A?style=flat&logo=tailwindcss)
 
-*At the end of the project, the `README.md` in your team's repo should be relevant to your project. It is part of the documentation.*
+Tailwind CSS is a CSS framework that makes designing user interfaces extremely easy. Instead of having a bunch of CSS classes and files littered throughout the project, Tailwind CSS creates a bunch of classes for every possible style that can be applied to HTML and React components. Then at build time, only the necessary CSS classes are included in the final app, reducing the final bundle size.
 
-See the `CHECKLIST.md` file with more information and some beginning steps instructions in it.
+![Firebase](https://img.shields.io/badge/-Firebase-05122A?style=flat&logo=firebase)
 
-#### Documentation
+Firebase is a platform of cloud computing services provided by Google. Firebase is used by millions of users and has built-in, fully documented support for hosting databases, provding the tools for user authentication, tracking Google Analytics statistics, and more. Firebase, specifically *Firebase Firestore*, was our preferred database option, and *Firebase Authentication* with Google Sign-on was our preferred way of authenticating users for this website.
 
-As you can see above and in `CHECKLIST.md`, documentation is crucial.
-Get good at it.
-You'll thank me later.
+<!--
+![Vercel](https://img.shields.io/badge/-Vercel-05122A?style=flat&logo=vercel)
 
-##### Some documentation examples
+Vercel, the company behind Next.js, also offers hosting. We used Vercel to host this particular project.
+ -->
+ 
+## Getting Started
 
-(May be updated later)
+If you prefer to start up a local version of this website rather than accessing the live hosted link, follow the instructions below:
 
-https://open-meteo.com/en/docs#api-documentation
+1. Make sure to *clone* this respository locally. In addition, ensure that all `.env` files are used as appropriate.
+2. Ensure that your computer has *Node.js* and the *Node Package Manager (npm) installed)*. You can do this [here](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm).
+3. Open a terminal window at the root of the project and run the `npm install` command. This command will ensure that all necessary dependencies are installed for this project to load correctly locally.
+4. (Optional) Next, feel free to run the `npm test` command. This command will start the application, ensure that it works correctly, and then promptly close the application.
+5. Lastly, run the `npm run dev` command to start the project. This project should be accessible at `http://localhost:3000`.
 
-[Postman Generate API Documentation](https://learning.postman.com/docs/publishing-your-api/documenting-your-api/)
+## APIs and Documentation
 
-#### Pull requests
+This website has an API accessible for use. Access documentation regarding the API [here]().
 
-Your team must use the fork and pull requests feature in GitHub to manage contributions, changes, and discussions about your code and documentation.
-This makes everything a lot easier and you are less likely to overwrite someone elses work, run into merge conflicts, etc. 
-It is a built-in collaborative workflow.
+In addition, the `/docs` directly includes other useful documentation files to describe the history and methodology implemented in this project. Access this directory [here]().
 
-#### Issues
+## Group Member Responsibilities
 
-Additionally, use the issues feature to manage bug-fixing and feature discussions.
-It makes things easier to keep track of.
-It also helps the instructional staff help you because there will be context and documentation related to your project that we can review when we meet with your team during office hours.
+The various members of our group worked on various parts of the application. Below is a tablular representation of the contributions from all of our teammates:
 
-#### Projects tab
+### Backend Tasks
+| Task | Contributors |
+| ---- | ---- |
+| Configure Next.js and Firebase | Ajay |
+| Create `DataService` to interact with the Firebase Firestore Database | Ajay |
+| Configure all API routes and connect them to the Firestore Database via the `DataService` | Ajay and David |
+| Configure Firebase Authentication and Google Sign-on | Ajay |
+| Add all sample backend data | Ajay and David |
 
-There is a "Projects" tab available in your team repo.
-Create a project board in the class GH organization and attach it to your team. 
+### Frontend Tasks
+| Task | Contributors |
+| ---- | ---- |
+| Design and Implement the Home Page | David and Andrew |
+| Design and Implement the Restaurants List Page | David and Andrew |
+| Design and Implement the Restaurant Detail View and add Google Maps Functionality | Will and Angelina |
+| Design and Implement the User Detail Page | Aayush and Muktha |
+### Deployment
+| Task | Contributors |
+| ---- | ---- |
+| Deploy website for live hosting to Vercel | Ajay |
+| Write Documentation Files | Ajay |
 
-This is a great place to organize your work rather than relying on email, Google docs, GroupMe, etc.
-This also allows us (the instructional staff) to see how your project is progressing and to help you with questions and issues because it will give us context.
+## Dependency List
 
-### License your work
+This is the list of dependencies used in this project and their versions. All of these may be installed with the `npm install` command.
 
-In addition to this `README.md`, you'll find a `LICENSE` file.
-This is provided as a placeholder so that you may replace it with the license of your choice.
-
-The placeholder file contains some information about choosing a license and how to include it in your repository.
-Read through the links in this file and try out the decision tools to prepare for having a discussion with your team about licensing.
-
-Make sure that the license specified in your Node `package.json` file matches that in your `LICENSE` file.
-
-```LICENSE
-You will want to change the text in this file to be the text of the license for your project.
-
-Information about choosing a license can be found here:
-
-[Licensing a repository](https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/licensing-a-repository)
-
-[Choose an open source license](https://choosealicense.com/)
-
-[SPDX License List](https://spdx.org/licenses/)
-
-[Browse Software Licenses and Summaries](https://tldrlegal.com/licenses/browse)
-
-[How to choose a license for your own work](https://www.gnu.org/licenses/license-recommendations.en.html) - GNU Operating System
-
-[Public license selector](https://ufal.github.io/public-license-selector/) - Institute of Formal and Applied Linguistics (ÚFAL), Faculty of Mathematics and Physics, Charles University
 ```
-
-## Expectations
-
-The expectations for this project is something along the lines of a working prototype.
-It does not have to be beautiful, it just has to work for the most part (sort of).
-And it does not have to be feature rich, it just has to do some pretty basic things (though more advanced features are a place for you to flex your skills).
-
-I expect and encourage inter-team collaboration as well.
-If there is something that your team finds useful: create a discussion in our class organization about it!
-
-The repositories for this project will be created under the course organization as open source.
-This is intentional to encourage you to share things and learn from what your peers are doing.  
-
-Finally, be creative!
-
-This doesn't mean that what you build has to be earth-shattering.
-It can be whatever your team wants it to be.
-
-AND it can serve as a portfolio piece if you plan accordingly.
-
-So, BE CREATIVE, and do interesting things!
+"@googlemaps/js-api-loader": "^1.15.1",
+"@react-google-maps/api": "^2.18.1",
+"@types/node": "18.15.10",
+"@types/react": "18.0.29",
+"@types/react-dom": "18.0.11",
+"autoprefixer": "^10.4.14",
+"firebase": "^9.18.0",
+"next": "13.2.4",
+"react": "18.2.0",
+"react-dom": "18.2.0",
+"react-firebase-hooks": "^5.1.1",
+"react-geocode": "^0.2.3",
+"typescript": "5.0.2"
+```
