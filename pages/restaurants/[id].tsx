@@ -239,5 +239,5 @@ export async function getStaticProps(context: GetStaticPropsContext) {
   var latitude;
   var longitude;
 
-  return { props: { restaurant: restaurant, reviews: reviews, average_review: average_review } };
+  return { props: { restaurant: restaurant, reviews: reviews ?? [], average_review: average_review ?? 0 } };
 }
