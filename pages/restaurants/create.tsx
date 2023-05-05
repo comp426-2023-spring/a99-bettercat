@@ -1,13 +1,7 @@
-import { auth, initFirebase } from "@/firebase/clientApp";
-import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
-import { getFirestore, collection } from "firebase/firestore";
+import { auth } from "@/firebase/clientApp";
+import { signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { useCollection } from "react-firebase-hooks/firestore";
 
-import Head from "next/head";
-
-import RestaurantCard from "@/components/RestaurantCard";
-import * as DataService from "@/lib/DataService";
 import Restaurant, { RestaurantHours, RestaurantHoursSchedule } from "@/models/Restaurant";
 import { useState } from "react";
 import RestaurantHourInput from "@/components/RestaurantHourInput";

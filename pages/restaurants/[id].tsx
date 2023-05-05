@@ -1,14 +1,9 @@
-import { GetStaticPaths, GetStaticProps, GetStaticPropsContext } from "next";
-import Head from "next/head";
-import { auth, initFirebase } from "@/firebase/clientApp";
-import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
-import { getFirestore, collection } from "firebase/firestore";
-import { useCollection } from "react-firebase-hooks/firestore";
-import { useLoadScript, GoogleMap, MarkerF, Data } from "@react-google-maps/api";
+import { GetStaticPaths, GetStaticPropsContext } from "next";
+import { auth } from "@/firebase/clientApp";
+import { useLoadScript, GoogleMap, MarkerF } from "@react-google-maps/api";
 import { useMemo } from "react";
 import Geocode from "react-geocode";
 import { useState, useEffect } from "react";
-import { Loader } from "@googlemaps/js-api-loader";
 
 /** Interface for the parameter of the `RestaurantView` component. */
 interface RestaurantProps {

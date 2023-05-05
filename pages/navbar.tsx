@@ -1,9 +1,6 @@
 import Image from 'next/image';
 import Link from 'next/link';
-import { useState, useEffect } from 'react';
-import User from '@/models/User';
-import { auth, initFirebase } from "@/firebase/clientApp";
-import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
+import { auth } from "@/firebase/clientApp";
 import unc from "public/unc.png"
 import { useAuthState } from 'react-firebase-hooks/auth';
 

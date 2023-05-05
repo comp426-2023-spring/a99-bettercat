@@ -1,15 +1,12 @@
 import { initFirebase } from "@/firebase/clientApp";
 import Restaurant from "@/models/Restaurant";
-import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
-import { getFirestore, collection } from "firebase/firestore";
+import { getAuth } from "firebase/auth";
 import { useState } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { useCollection } from "react-firebase-hooks/firestore";
 import * as DataService from "@/lib/DataService";
 import Review from "@/models/Review";
 import { GetStaticPaths, GetStaticPropsContext } from "next";
 import { ParsedUrlQuery } from "querystring";
-import { redirect } from "next/dist/server/api-utils";
 import { useRouter } from "next/router";
 
 const app = initFirebase();

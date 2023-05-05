@@ -1,14 +1,11 @@
-import { auth, initFirebase } from "@/firebase/clientApp";
-import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
-import { getFirestore, collection } from "firebase/firestore";
+import { auth } from "@/firebase/clientApp";
+import { signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { useCollection } from "react-firebase-hooks/firestore";
 import { useEffect } from "react";
 import { useRouter } from "next/router";
 
 
 import NavBar from "./navbar";
-import Head from "next/head";
 import Restaurant from "@/models/Restaurant";
 
 
