@@ -234,8 +234,17 @@ export default function RestaurantView({ restaurant, reviews, average_review }: 
         </div>
       </div>
       <div className="bg-white rounded-lg p-10 drop-shadow-lg">
-        <h1 className="font-extrabold text-3xl">Reviews</h1>
-        <div className="flex flex-row gap-10">
+        <div className="flex flex-row w-100">
+          <h1 className="font-extrabold text-3xl">Reviews</h1>
+          <Link
+            className="border border-black w-fit rounded-2xl py-1 px-4 bg-white hover:bg-slate-300 ml-6"
+            href={"/restaurants/create-review/" + restaurant.id}
+          >
+            Add Review?
+          </Link>
+        </div>
+        
+        <div className="flex flex-row gap-10 mt-1">
           {reviews?.map((reviews) => (
             <>
               <div className="p-10 rounded-lg bg-slate-400">
@@ -277,6 +286,7 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import Review from "@/models/Review";
 import NavBar from "../navbar";
 import User from "@/models/User";
+import Link from "next/link";
 
 interface RestaurantParams extends ParsedUrlQuery {
   slug: string;

@@ -150,6 +150,7 @@ export async function getStaticProps(context: GetStaticPropsContext) {
 
     // Get user data
     const reviews = await DataService.getReviewsFromUser(Array.isArray(id) ? id[0] : id!);
+
     let dbUser = await DataService.getUser(Array.isArray(id) ? id[0] : id!);
 
     // Get favorite restaurants of user
@@ -157,10 +158,11 @@ export async function getStaticProps(context: GetStaticPropsContext) {
     const favoriteRestaurants: Restaurant[] = allRestaurants.filter((e) => dbUser.favoriteRestaurants.includes(e.id))
 
     // Get restaurant data for each review
-    const reviewRestaurantPromises = reviews?.map(async (review) => {
-        const restaurant = await DataService.getRestaurant(review?.restaurantId);
-        return { [review?.id]: restaurant?.name };
+    const reviewRestaurantPromises = (reviews ?? []).map(async (review) => {
+        const restaurant = await DataService.getRestaurant(review.restaurantId);
+        return { [review.id]: restaurant?.name };
     });
+
     const reviewRestaurants = Object.assign({}, ...(await Promise.all(reviewRestaurantPromises ?? [])))
 
 

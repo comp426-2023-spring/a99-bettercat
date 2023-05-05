@@ -5,13 +5,16 @@ import User from '@/models/User';
 import { auth, initFirebase } from "@/firebase/clientApp";
 import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 import unc from "public/unc.png"
+import { useAuthState } from 'react-firebase-hooks/auth';
 
 // interface navBarProps {
 //   user_id: String | null;
 // }
 // { user_id }:navBarProps
 export default function NavBar(){
-    var user_id = auth.currentUser?.uid
+
+  const [user, loading, error] = useAuthState(auth);
+
     return (
         <nav className="flex filter drop-shadow-md bg-white px-4 py-4 h-30 w-full">    
             <div className="flex items-center justify-center w-full"> {/*logo container*/}    
@@ -25,9 +28,9 @@ export default function NavBar(){
                   </Link>
                   <div className="flex flex-row ml-4 space-x-20">
                   <Link className="text-xl text-blue-300 font-medium my-4" href="/restaurants">View All</Link>
-                  { user_id && (
+                  { user && (
                     <div className="text-xl text-blue-300 font-medium my-4 space-x-20">
-                      <Link href={"/users/" + user_id} >My Profile</Link>
+                      <Link href={"/users/" + user.uid} >My Profile</Link>
                       <button onClick={() => auth.signOut()}>Sign out</button>
                     </div>
                     
