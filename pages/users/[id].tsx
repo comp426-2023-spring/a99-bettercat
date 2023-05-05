@@ -20,9 +20,42 @@ export default function UserView({dbUser, reviews, favoriteRestaurants, reviewRe
     const [user, loading, error] = useAuthState(auth);
     const [dbUserState, setDbUserState] = useState(dbUser);
 
+    /**
+     * This method toggles the checkmark for a favorite category.
+     * @param category category of food to toggle
+     */
     const toggleFavoriteCategory = async (category: string) => {
         await DataService.toggleFavoriteCategory(user!.uid, category);
         setDbUserState(await DataService.getUser(user!.uid))
+    }
+
+    /**
+     * This method deletes a user and then redirects to the home page.
+     */
+    const router = useRouter();
+    const deleteUserPressed = async () => {
+    if(user) {
+
+        const auth = getAuth();
+        const user = auth.currentUser;
+
+        // TODO(you): prompt the user to re-provide their sign-in credentials
+
+        reauthenticateWithPopup(user!, new GoogleAuthProvider()).then(() => {
+        // User re-authenticated.
+
+            const deleteUserHandler = async () => {
+                await deleteUser(user!);
+            }
+
+            deleteUserHandler();
+            router.push("/");
+            
+        }).catch((error) => {
+        // An error ocurred
+        // ...
+        });
+    }
     }
 
     return (
@@ -105,6 +138,8 @@ export default function UserView({dbUser, reviews, favoriteRestaurants, reviewRe
                 <h3>{reviews.length} review(s)</h3>
             </div>
 
+            <p onClick={() => {deleteUserPressed()}} className=" text-red-500">Delete User</p>
+
         </div>
         </div>
     );
@@ -129,6 +164,8 @@ import User from "@/models/User";
 import NavBar from "../navbar";
 import { useState } from "react";
 import { Data } from "@react-google-maps/api";
+import { GoogleAuthProvider, deleteUser, getAuth, reauthenticateWithPopup } from "firebase/auth";
+import { useRouter } from "next/router";
 
 interface UserParams extends ParsedUrlQuery {
     slug: string
