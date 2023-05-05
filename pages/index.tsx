@@ -4,10 +4,8 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import { useEffect } from "react";
 import { useRouter } from "next/router";
 
-
 import NavBar from "./navbar";
 import Restaurant from "@/models/Restaurant";
-
 
 /** Interface for the parameter of the `Home` component. */
 interface HomeProps {
@@ -38,51 +36,40 @@ export default function Home({ restaurants }: HomeProps) {
   }
   // Render a page when the authentication state is loading
   if (loading) {
-    return <p>Loading...</p>;
+    return <LoadingSpinner />;
   }
   // Render a page when a user is signed in and stores user data in object `user`
   if (user) {
-    return (
-      <div>
-        <NavBar></NavBar>
-        <p>Signed In User: {user.email}</p>
-        <button onClick={() => auth.signOut()}>Sign out</button>
-        <h1>Restaurants</h1>
-        {restaurants?.map((restaurant) => (
-          <p>{restaurant.name}</p>
-        ))}
-      </div>
-    );
+    return <LoadingSpinner />;
   }
   // Render a page when a user is not signed in
-  return(
-    
+  return (
     <div className="App">
       <NavBar></NavBar>
       <div className="flex flex-col items-center justify-center bg-slate-300 min-h-screen">
-      <h1 className="text-4xl font-bold mb-5">Welcome to Chapel Hill Eats</h1>
-      <p className="text-lg mb-10">Sign in to get started:</p>
-      <div>
-        <button
-          className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded"
-          onClick={() => authenticate()}
-        >
-          Sign In
-        </button>
+        <h1 className="text-4xl font-bold mb-5">Welcome to Chapel Hill Eats</h1>
+        <p className="text-lg mb-10">Sign in to get started:</p>
+        <div>
+          <button
+            className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded"
+            onClick={() => authenticate()}
+          >
+            Sign In
+          </button>
+        </div>
       </div>
-    </div>
     </div>
   );
 }
 
 import * as DataService from "@/lib/DataService";
+import LoadingSpinner from "@/components/LoadingSpinner";
 
 /**
  * Loads data on the server side as the page loads.
  * @returns properties for the `index` page with the data loaded.
  */
 export async function getStaticProps() {
-
   const restaurants = await DataService.getAllRestaurants();
   return { props: { restaurants: restaurants } };
 }
@@ -94,16 +81,19 @@ const authenticate = async () => {
   const uid = user.uid;
 
   // Add the user to Firestore if it does not currently exist (i.e., new user)
-  const getUserResult = await DataService.getUser(uid)
+  const getUserResult = await DataService.getUser(uid);
 
-  if(getUserResult == undefined) {
-    await DataService.createUser({
-      id: uid,
-      favoriteCategories: [],
-      favoriteRestaurants: []
-    }, uid)
+  if (getUserResult == undefined) {
+    await DataService.createUser(
+      {
+        id: uid,
+        favoriteCategories: [],
+        favoriteRestaurants: [],
+      },
+      uid
+    );
   }
 
   // Log user authentication
   await DataService.logUserAuthentication(uid, "auth");
-}
+};
