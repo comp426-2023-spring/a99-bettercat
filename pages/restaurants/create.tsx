@@ -7,6 +7,7 @@ import { useState } from "react";
 import RestaurantHourInput from "@/components/RestaurantHourInput";
 import { createRestaurant } from "@/lib/DataService";
 import { useRouter } from "next/router";
+import * as DataService from "@/lib/DataService";
 
 export interface RestaurantFormInfo {
   name: string; // Name of the restaurant
