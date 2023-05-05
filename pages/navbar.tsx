@@ -3,6 +3,7 @@ import Link from "next/link";
 import { auth } from "@/firebase/clientApp";
 import unc from "public/unc.png";
 import { useAuthState } from "react-firebase-hooks/auth";
+import { useRouter } from "next/router";
 
 // interface navBarProps {
 //   user_id: String | null;
@@ -11,6 +12,8 @@ import { useAuthState } from "react-firebase-hooks/auth";
 export default function NavBar() {
   const [user, loading, error] = useAuthState(auth);
 
+  const router = useRouter();
+  
   return (
     <nav className="flex filter drop-shadow-md bg-white px-4 py-4 h-30 w-full">
       <div className="flex flex-col lg:flex-row items-center justify-center w-full">
@@ -37,7 +40,11 @@ export default function NavBar() {
           {user && (
             <div className="text-xl text-blue-300 font-medium my-4 space-x-20">
               <Link href={"/users/" + user.uid}>My Profile</Link>
-              <button onClick={() => auth.signOut()}>Sign out</button>
+              <button onClick={async () => {
+                await auth.signOut();
+                
+                router.push("/");
+              }}>Sign out</button>
             </div>
           )}
         </div>
