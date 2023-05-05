@@ -57,7 +57,9 @@ export default function RestaurantView({ restaurant, reviews, average_review }: 
 
   // Render page
   return (
-    <div className="flex flex-col bg-slate-300 min-h-screen p-10 space-y-5">
+    <div>
+      <NavBar />
+      <div className="flex flex-col bg-slate-300 min-h-screen p-10 space-y-5">
       <h3 className="mb-4 text-center text-4xl font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-6xl dark:text-white">{restaurant.name}</h3>
       <h3 className="mb-6 text-lg font-normal text-gray-500 lg:text-xl sm:px-16 xl:px-48 dark:text-gray-400">{restaurant.description}</h3>
       <div className="self-center">
@@ -190,6 +192,7 @@ export default function RestaurantView({ restaurant, reviews, average_review }: 
             <h3>{average_review.toString()+ "/5 stars"}</h3>
         </div> */}
     </div>
+    </div>
   );
 }
 
@@ -211,6 +214,7 @@ import { ParsedUrlQuery } from "querystring";
 import Restaurant from "@/models/Restaurant";
 import { useAuthState } from "react-firebase-hooks/auth";
 import Review from "@/models/Review";
+import NavBar from "../navbar";
 
 interface RestaurantParams extends ParsedUrlQuery {
   slug: string;

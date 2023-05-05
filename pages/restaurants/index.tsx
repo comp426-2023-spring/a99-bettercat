@@ -40,7 +40,9 @@ export default function Restaurants({ restaurants }: RestaurantsProps) {
 
   // Render page
   return (
-    <div className="flex flex-col bg-slate-300 min-h-screen p-10 space-y-5">
+    <div>
+      <NavBar />
+      <div className="flex flex-col bg-slate-300 min-h-screen p-10 space-y-5">
       <h1 className="text-center text-4xl font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-6xl dark:text-black">Chapel Hill Restaurants</h1>
       <div className="flex justify-between">
         <button
@@ -76,6 +78,9 @@ export default function Restaurants({ restaurants }: RestaurantsProps) {
             );
           })}
     </div>
+    </div>
+    
+    
   );
 }
 
@@ -85,6 +90,7 @@ import Restaurant from "@/models/Restaurant";
 import Link from "next/link";
 import { getUser } from "@/lib/DataService";
 import { useEffect, useState } from "react";
+import NavBar from "../navbar";
 
 /**
  * Loads data on the server side as the page loads.

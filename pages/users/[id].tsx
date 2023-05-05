@@ -28,7 +28,10 @@ export default function UserView({dbUser, reviews, favoriteRestaurants, reviewRe
     const [user, loading, error] = useAuthState(auth);
 
     return (
-        <div className="flex flex-col bg-orange-50 min-h-screen p-10 space-y-5">
+
+        <div>
+            <NavBar />
+            <div className="flex flex-col bg-orange-50 min-h-screen p-10 space-y-5">
             <h3 className="mb-4 text-center text-4xl font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-6xl dark:text-white">{"User: " + user?.displayName}</h3>
             <div className="self-center">
                 
@@ -97,6 +100,7 @@ export default function UserView({dbUser, reviews, favoriteRestaurants, reviewRe
             </div>
 
         </div>
+        </div>
     );
 }
 
@@ -116,6 +120,7 @@ import Restaurant from "@/models/Restaurant";
 import { useAuthState } from "react-firebase-hooks/auth";
 import Review from "@/models/Review";
 import User from "@/models/User";
+import NavBar from "../navbar";
 
 interface UserParams extends ParsedUrlQuery {
     slug: string
@@ -146,5 +151,5 @@ export async function getStaticProps(context: GetStaticPropsContext) {
     const reviewRestaurants = Object.assign({}, ...(await Promise.all(reviewRestaurantPromises ?? [])))
 
 
-    return {props: {dbUser: dbUser, reviews: reviews, favoriteRestaurants: favoriteRestaurants, reviewRestaurants: reviewRestaurants,} }
+    return {props: {dbUser: dbUser, reviews: reviews ?? [], favoriteRestaurants: favoriteRestaurants, reviewRestaurants: reviewRestaurants,} }
 }

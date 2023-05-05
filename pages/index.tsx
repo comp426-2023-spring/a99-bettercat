@@ -9,6 +9,7 @@ import { useRouter } from "next/router";
 
 import NavBar from "./navbar";
 import Head from "next/head";
+import Restaurant from "@/models/Restaurant";
 
 const app = initFirebase();
 const auth = getAuth();
@@ -59,7 +60,7 @@ export default function Home({ restaurants }: HomeProps) {
     );
   }
   // Render a page when a user is not signed in
-  return (
+  return(
     
     <div className="App">
       <NavBar></NavBar>
@@ -75,11 +76,11 @@ export default function Home({ restaurants }: HomeProps) {
         </button>
       </div>
     </div>
+    </div>
   );
 }
 
 import * as DataService from "@/lib/DataService";
-import Restaurant from "@/models/Restaurant";
 
 /**
  * Loads data on the server side as the page loads.
