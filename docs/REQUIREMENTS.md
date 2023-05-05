@@ -47,4 +47,4 @@ Your project should take the form of a Node package, with all of the attendant i
      > The user interface is easy-to-use.
 5. Demo video 🔴
 	1. In order to get credit for this, add a row to the table in the README here and make a pull request: https://github.com/comp426-2022-fall/a99-demos/edit/main/README.md
-7. Self/group evaluation (Individual group members: this is part of the final exam for the course.) 🔴
+7. Self/group evaluation (Individual group members: this is part of the final exam for the course.) 🟢
