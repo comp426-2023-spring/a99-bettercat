@@ -78,11 +78,17 @@ export default function Restaurants() {
       });
     }
   }
+
+  /**
+   * Creates a restaurant.
+   */
   const router = useRouter();
   async function handleSubmit() {
     let data = restaurantInfo;
     restaurantInfo.price = Number(restaurantInfo.price);
     await createRestaurant(restaurantInfo as Restaurant);
+    await DataService.logUserAuthentication(user!.uid, "create-restaurant (for: " + data.name + ")");
+
     router.push("/restaurants");
   }
 

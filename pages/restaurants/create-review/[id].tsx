@@ -61,6 +61,9 @@ export default function CreateReview({ restaurant }: CreateReviewProps) {
     })
   }
 
+  /**
+   * Submits the form and creates a new review.
+   */
   const router = useRouter();
   async function handleSubmit() {
     let data = reviewInfo;
@@ -74,6 +77,8 @@ export default function CreateReview({ restaurant }: CreateReviewProps) {
       text: data.text
     }
     await DataService.createReview(review as unknown as Review)
+
+    await DataService.logUserAuthentication(user!.uid, "write-review (for: " + data.restaurantId + ")");
 
     router.push("/restaurants/" + data.restaurantId);
   }
