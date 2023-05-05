@@ -47,7 +47,7 @@ export default function Home({ restaurants }: HomeProps) {
     <div className="App">
       <NavBar></NavBar>
       <div className="flex flex-col items-center justify-center bg-slate-300 min-h-screen">
-        <h1 className="text-4xl font-bold mb-5">Welcome to Chapel Hill Eats</h1>
+        <h1 className="text-4xl font-bold mb-5">Welcome to UNC Eats</h1>
         <p className="text-lg mb-10">Sign in to get started:</p>
         <div>
           <button
