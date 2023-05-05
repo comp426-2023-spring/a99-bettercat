@@ -64,6 +64,7 @@ export default function Home({ restaurants }: HomeProps) {
 
 import * as DataService from "@/lib/DataService";
 import LoadingSpinner from "@/components/LoadingSpinner";
+import { UserDoesNotExistException } from "@/lib/DataService";
 
 /**
  * Loads data on the server side as the page loads.
@@ -81,19 +82,30 @@ const authenticate = async () => {
   const uid = user.uid;
 
   // Add the user to Firestore if it does not currently exist (i.e., new user)
-  const getUserResult = await DataService.getUser(uid);
+  
+  // Attempt to load the user
+  try {
+    const getUserResult = await DataService.getUser(uid);
+    // If sucessfull, just authenticate and log.
+    await DataService.logUserAuthentication(uid, "auth");
 
-  if (getUserResult == undefined) {
-    await DataService.createUser(
-      {
-        id: uid,
-        favoriteCategories: [],
-        favoriteRestaurants: [],
-      },
-      uid
-    );
+  }
+  catch(e) {
+    // If an error was thrown above, it means that  the user does not exist.
+    if(e instanceof UserDoesNotExistException) {
+      await DataService.createUser(
+        {
+          id: uid,
+          favoriteCategories: [],
+          favoriteRestaurants: [],
+        },
+        uid
+      );
+    }
+    
+    // Log user authentication
+    await DataService.logUserAuthentication(uid, "auth");
+
   }
 
-  // Log user authentication
-  await DataService.logUserAuthentication(uid, "auth");
 };

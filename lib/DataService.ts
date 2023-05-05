@@ -92,6 +92,8 @@ export const getReviewsFromUser = async (userId: string) => {
  * @param string the ID of the user to look up.
  * @returns the user from the database.
  */
+export class UserDoesNotExistException extends Error {}
+
 export const getUser = async (id: string) => {
 
     const userCollection = collection(firestore, "users").withConverter(converter<User>());
@@ -100,7 +102,7 @@ export const getUser = async (id: string) => {
     const user: User | undefined = querySnapshot.data()
 
     if (!user) {
-        throw new Error("User not found");
+        throw new UserDoesNotExistException("User not found");
     }
 
     return user;
