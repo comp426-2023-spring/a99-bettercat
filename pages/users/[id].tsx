@@ -1,13 +1,10 @@
 import { GetStaticPaths, GetStaticProps, GetStaticPropsContext } from "next";
 import Head from "next/head";
-import { initFirebase } from '@/firebase/clientApp'
+import { auth, initFirebase } from '@/firebase/clientApp'
 import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 import { getFirestore, collection } from "firebase/firestore";
 import { useCollection } from "react-firebase-hooks/firestore";
 
-
-const app = initFirebase();
-const auth = getAuth();
 
 /** Interface for the parameter of the `UserView` component. */
 interface UserProps {

@@ -1,4 +1,4 @@
-import { initFirebase } from "@/firebase/clientApp";
+import { auth, initFirebase } from "@/firebase/clientApp";
 import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 import { getFirestore, collection } from "firebase/firestore";
 import { useAuthState } from "react-firebase-hooks/auth";
@@ -11,8 +11,6 @@ import NavBar from "./navbar";
 import Head from "next/head";
 import Restaurant from "@/models/Restaurant";
 
-const app = initFirebase();
-const auth = getAuth();
 
 /** Interface for the parameter of the `Home` component. */
 interface HomeProps {

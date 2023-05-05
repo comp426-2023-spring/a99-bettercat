@@ -1,6 +1,6 @@
 import { GetStaticPaths, GetStaticProps, GetStaticPropsContext } from "next";
 import Head from "next/head";
-import { initFirebase } from "@/firebase/clientApp";
+import { auth, initFirebase } from "@/firebase/clientApp";
 import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 import { getFirestore, collection } from "firebase/firestore";
 import { useCollection } from "react-firebase-hooks/firestore";
@@ -9,9 +9,6 @@ import { useMemo } from "react";
 import Geocode from "react-geocode";
 import { useState, useEffect } from "react";
 import { Loader } from "@googlemaps/js-api-loader";
-
-const app = initFirebase();
-const auth = getAuth();
 
 /** Interface for the parameter of the `RestaurantView` component. */
 interface RestaurantProps {
@@ -234,7 +231,7 @@ export async function getStaticProps(context: GetStaticPropsContext) {
 
   //Calculate Avg Review
   var average_review;
-  for (let review of reviews!) {
+  for (let review of reviews ?? []) {
     average_review = (review.score / reviews!.length) * reviews!.length;
   }
 

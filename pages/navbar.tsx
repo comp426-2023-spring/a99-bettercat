@@ -2,11 +2,9 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useState, useEffect } from 'react';
 import User from '@/models/User';
-import { initFirebase } from "@/firebase/clientApp";
+import { auth, initFirebase } from "@/firebase/clientApp";
 import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 import unc from "public/unc.png"
-
-const auth = getAuth();
 
 // interface navBarProps {
 //   user_id: String | null;

@@ -1,4 +1,4 @@
-import { initFirebase } from "@/firebase/clientApp";
+import { auth, initFirebase } from "@/firebase/clientApp";
 import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 import { getFirestore, collection } from "firebase/firestore";
 import { useAuthState } from "react-firebase-hooks/auth";
@@ -13,9 +13,6 @@ import { useState } from "react";
 import RestaurantHourInput from "@/components/RestaurantHourInput";
 import { createRestaurant } from "@/lib/DataService";
 import { useRouter } from "next/router";
-
-const app = initFirebase();
-const auth = getAuth();
 
 export interface RestaurantFormInfo {
   name: string; // Name of the restaurant
