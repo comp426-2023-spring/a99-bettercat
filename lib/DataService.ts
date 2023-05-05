@@ -3,7 +3,7 @@ import Restaurant from "@/models/Restaurant";
 import Review from "@/models/Review";
 import User from "@/models/User";
 import UserInteractionLog from "@/models/UserInteractionLog";
-import { QueryDocumentSnapshot, collection, doc, getDoc, getDocs, getFirestore, query, setDoc, where } from "firebase/firestore";
+import { QueryDocumentSnapshot, collection, doc, getDoc, getDocs, getFirestore, query, setDoc, updateDoc, where } from "firebase/firestore";
 
 // Connect to Firebase Firestore
 const app = initFirebase();
@@ -152,4 +152,31 @@ export const logUserAuthentication = async (userId: string, desc: string) => {
     timestamp: Date().toString(),
     description: desc
   })
+}
+
+/**
+ * Toggles whether a restaurant is favorited or not.
+ * @param uid the ID of the user to add the restaurant to
+ * @param restaurantId ID of the restaurant
+ */
+export const toggleFavoriteRestaurant = async (uid: string, restaurantId: string) => {
+  const userCollection = collection(firestore, "users").withConverter(converter<User>());
+  const docReference = doc(userCollection, uid);
+
+  const user = await getUser(uid);
+  const oldFavoriteRestaurants = user.favoriteRestaurants;
+
+  if(oldFavoriteRestaurants.includes(restaurantId)) {
+    // Remove favorite
+    const newFavoriteRestaurants = oldFavoriteRestaurants.filter((e) => e !== restaurantId);
+    await updateDoc(docReference, {favoriteRestaurants: newFavoriteRestaurants});
+  }
+  else {
+    // Add favorite
+    const newFavoriteRestaurants = oldFavoriteRestaurants;
+    newFavoriteRestaurants.push(restaurantId);
+    await updateDoc(docReference, {favoriteRestaurants: newFavoriteRestaurants});
+
+  }
+
 }

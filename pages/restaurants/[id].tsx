@@ -4,7 +4,7 @@ import { auth, initFirebase } from "@/firebase/clientApp";
 import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 import { getFirestore, collection } from "firebase/firestore";
 import { useCollection } from "react-firebase-hooks/firestore";
-import { useLoadScript, GoogleMap, MarkerF } from "@react-google-maps/api";
+import { useLoadScript, GoogleMap, MarkerF, Data } from "@react-google-maps/api";
 import { useMemo } from "react";
 import Geocode from "react-geocode";
 import { useState, useEffect } from "react";
@@ -28,6 +28,29 @@ export default function RestaurantView({ restaurant, reviews, average_review }: 
    > If all the above == null, then it means that no user is currently signed in.
    */
   const [user, loading, error] = useAuthState(auth);
+
+  const [favorited, setFavorited] = useState(false);
+
+  const toggleFavoriteState = async () => {
+    await DataService.toggleFavoriteRestaurant(user!.uid, restaurant.id);
+    setFavorited(!favorited);
+  }
+
+  const [dbUser, setDbUser] = useState<User | null>(null);
+
+  useEffect(() => {
+    const loadDbUser = async () => {
+      const newdDbUser = await DataService.getUser(user!.uid);     
+      setDbUser(newdDbUser);
+      setFavorited(newdDbUser.favoriteRestaurants.includes(restaurant.id));
+    }
+
+    if(user) {
+      loadDbUser();
+    }
+  })
+
+
   const libraries = useMemo(() => ["places"], []);
 
   const mapCenter = useMemo(() => ({ lat: Number(lat), lng: Number(lng) }), [lat, lng]);
@@ -60,9 +83,50 @@ export default function RestaurantView({ restaurant, reviews, average_review }: 
       <h3 className="mb-4 text-center text-4xl font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-6xl dark:text-white">{restaurant.name}</h3>
       <h3 className="mb-6 text-lg font-normal text-gray-500 lg:text-xl sm:px-16 xl:px-48 dark:text-gray-400">{restaurant.description}</h3>
       <div className="self-center">
+        {
+          dbUser && favorited ? (
+            <a
+              onClick={() => toggleFavoriteState()}
+              className="inline-flex items-center justify-center  px-5 py-3 mr-1 text-base font-medium text-center text-white bg-slate-400 rounded-lg hover:bg-slate-500 focus:ring-4 focus:ring-slate-300 dark:focus:ring-slate-900"
+            >
+              Unfavorite
+              <svg
+                className="w-5 h-5 ml-2 -mr-1"
+                fill="currentColor"
+                viewBox="0 0 20 20"
+                xmlns="http://www.w3.org/2000/svg"
+              ></svg>
+        </a>
+          ) : dbUser ? (
+            <a
+            onClick={() => toggleFavoriteState()}
+              className="inline-flex items-center justify-center  px-5 py-3 mr-1 text-base font-medium text-center text-white bg-yellow-400 rounded-lg hover:bg-yellow-500 focus:ring-4 focus:ring-yellow-300 dark:focus:ring-yellow-900"
+            >
+              {dbUser && favorited ? "Unfavorite" : "Favorite"}
+              <svg
+                className="w-5 h-5 ml-2 -mr-1"
+                fill="currentColor"
+                viewBox="0 0 20 20"
+                xmlns="http://www.w3.org/2000/svg"
+              ></svg>
+        </a>
+          ) : (
+            <a
+              className="inline-flex items-center justify-center  px-5 py-3 mr-1 text-base font-medium text-center text-white bg-slate-400 rounded-lg hover:bg-slate-500 focus:ring-4 focus:ring-slate-300 dark:focus:ring-slate-900"
+            >
+              Loading...
+              <svg
+                className="w-5 h-5 ml-2 -mr-1"
+                fill="currentColor"
+                viewBox="0 0 20 20"
+                xmlns="http://www.w3.org/2000/svg"
+              ></svg>
+        </a>
+          )
+        }
+        
         <a
-          href={restaurant.website}
-          className="inline-flex items-center justify-center  px-5 py-3 text-base font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 dark:focus:ring-blue-900"
+          className="inline-flex items-center justify-center  px-5 py-3 ml-1 text-base font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 dark:focus:ring-blue-900"
         >
           Website
           <svg
@@ -191,7 +255,7 @@ export default function RestaurantView({ restaurant, reviews, average_review }: 
     </div>
     </div>
   );
-}
+} 
 
 /**
  * Returns that paths that have to be created at build time.
@@ -212,6 +276,7 @@ import Restaurant from "@/models/Restaurant";
 import { useAuthState } from "react-firebase-hooks/auth";
 import Review from "@/models/Review";
 import NavBar from "../navbar";
+import User from "@/models/User";
 
 interface RestaurantParams extends ParsedUrlQuery {
   slug: string;
