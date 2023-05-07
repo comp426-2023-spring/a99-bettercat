@@ -10,7 +10,7 @@ The **UNC Restaurants Tracker** is an interactive web application that allows us
 
 ## Link to Website
 
-Our website is hosted live using Vercel - link here.
+Our website is hosted live using Vercel - link [here](https://unc-food-tracker.vercel.app/).
 
 ## Tech Stack
 
