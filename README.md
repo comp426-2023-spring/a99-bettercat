@@ -54,9 +54,9 @@ If you prefer to start up a local version of this website rather than accessing 
 
 ## APIs and Documentation
 
-This website has an API accessible for use. Access documentation regarding the API [here]().
+This website has an API accessible for use. Access documentation regarding the API [here](https://github.com/comp426-2023-spring/a99-bettercat/blob/main/docs/API.md).
 
-In addition, the `/docs` directly includes other useful documentation files to describe the history and methodology implemented in this project. Access this directory [here]().
+In addition, the `/docs` directly includes other useful documentation files to describe the history and methodology implemented in this project. Access this directory [here](https://github.com/comp426-2023-spring/a99-bettercat/blob/main/docs).
 
 ## Group Member Responsibilities
 
