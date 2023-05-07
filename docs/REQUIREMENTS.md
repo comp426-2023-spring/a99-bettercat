@@ -2,7 +2,7 @@
 
 > This markdown file contains the requirements specified in the `a99` instructions, as well as our progress and justification for each.
 
-A GitHub repository in the class organization containing your code and documentation and a prototype release package. 🔴
+A GitHub repository in the class organization containing your code and documentation and a prototype release package. 🟢
 
 Your project should take the form of a Node package, with all of the attendant items associated with that. 🟢
 > Our project is a Node package.
@@ -45,6 +45,6 @@ Your project should take the form of a Node package, with all of the attendant i
      > Code is well documented.
 	5. User instructions in the interface if needed. 🟢
      > The user interface is easy-to-use.
-5. Demo video 🔴
+5. Demo video 🟢
 	1. In order to get credit for this, add a row to the table in the README here and make a pull request: https://github.com/comp426-2022-fall/a99-demos/edit/main/README.md
 7. Self/group evaluation (Individual group members: this is part of the final exam for the course.) 🟢
