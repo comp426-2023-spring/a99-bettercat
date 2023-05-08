@@ -23,3 +23,7 @@
     - Stars/points (e.g. 4 out of 5 stars)
 
   - Show restaurants location (Google map API?)
+
+---
+
+### More planning can be seen [here](https://github.com/orgs/comp426-2023-spring/projects/7/views/1)
